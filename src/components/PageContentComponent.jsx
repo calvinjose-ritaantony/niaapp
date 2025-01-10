@@ -17,7 +17,7 @@ const PageContentComponent = (props) => {
         }`}
       >
         <div className="nia-left-panel-container">
-          {/* <LeftPanelComponent selectListHandler={selectListHandler} selectedList={selectedList} /> */}
+          <LeftPanelComponent selectListHandler={selectListHandler} selectedList={selectedList} />
         </div>
       </div>
       <div className="nia-body-right-panel">

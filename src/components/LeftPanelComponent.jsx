@@ -36,14 +36,14 @@ const chatHeadLists = [
 const LeptPanelComponent = (props) => {
   const chatHead = useSelector((state)=>state.chatListData.chatHead);
   const userData = useSelector((state)=>state.userList.userInfo);
-  const [chatHeadList, setChatHeadList] = useState(chatHead ? chatHead : chatHeadLists);
+  const [chatHeadList, setChatHeadList] = useState(chatHead.length > 0 ? chatHead : chatHeadLists);
   const dispatch = useDispatch();
   const getChatHead = async() =>{
     const chatHeadListData = userData ? await dispatch(getChatHeadList(1)) : '';
   }
   useEffect(()=>{
     getChatHead();
-  },[])
+  },[]);
   return (
     <div className='nia-left-panel-container'>
         <div className='nia-left-panel-list'>
