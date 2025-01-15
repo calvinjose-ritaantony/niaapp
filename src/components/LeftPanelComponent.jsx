@@ -1,54 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getChatHeadList } from '../redux/actions/ChatConversationAction';
-
-const chatHeadLists = [
-    {
-        id: 1,
-        name: "Searching Orders"
-    },
-    {
-        id: 2,
-        name: "Summarize Product Review"
-    },
-    {
-        id: 3,
-        name: "Track Orders"
-    },
-    {
-        id: 4,
-        name: "Product Information"
-    },
-    {
-        id: 5,
-        name: "Generate Mail Orders"
-    },
-    {
-        id: 6,
-        name: "Review Bytes"
-    },
-    {
-        id: 7,
-        name: "DOC Search"
-    },
-]
+import { getUpdateInstructionAction, getUsecaseAction } from '../redux/actions/ChatConversationAction';
 
 const LeptPanelComponent = (props) => {
   const chatHead = useSelector((state)=>state.chatListData.chatHead);
   const userData = useSelector((state)=>state.userList.userInfo);
-  const [chatHeadList, setChatHeadList] = useState(chatHead.length > 0 ? chatHead : chatHeadLists);
+  const [selectedUseCase, setSelectedUseCase] = useState({});
+  const [chatHeadList, setChatHeadList] = useState(); //chatHead.length > 0 ? chatHead : chatHeadLists
+  const usecaseData = useSelector(state=>state.chatListData.chatUsecase);
   const dispatch = useDispatch();
   const getChatHead = async() =>{
-    const chatHeadListData = userData ? await dispatch(getChatHeadList(1)) : '';
+    const chatHeadListData = await dispatch(getUsecaseAction(props.activeGptDetails?._id));
   }
   useEffect(()=>{
     getChatHead();
   },[]);
+
+  useEffect(()=>{
+    setChatHeadList(usecaseData);
+    setSelectedUseCase(usecaseData[0]);
+    props.selectListHandler(usecaseData[0]);
+  },[usecaseData]);
+
+  const selectUseCase = async(item) => {
+    const updateChatCase = await dispatch(getUpdateInstructionAction(props.activeGptDetails?._id, props.activeGptDetails?.name, item._id))
+    setSelectedUseCase(item);
+    props.selectListHandler(item);
+  }
+
+
+
   return (
     <div className='nia-left-panel-container'>
         <div className='nia-left-panel-list'>
             <ul>
-                {chatHeadList && chatHeadList.map((item,i)=> <li key={item.id} className={`${item.name === props.selectedList ? 'active' : ''}`} onClick={()=>props.selectListHandler(item.name)}>{item.name}</li> )}
+                {chatHeadList && chatHeadList.map((item,i)=> <li key={item._id} className={`${item.name === selectedUseCase.name ? 'active' : ''}`} onClick={()=>selectUseCase(item)}>{item.name}</li> )}
             </ul>
         </div>
     </div>

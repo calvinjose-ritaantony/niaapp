@@ -1,19 +1,24 @@
-import { CHAT_LIST_SUCCESS, CHAT_HAEDLIST_SUCCESS } from "../constants/chatConstants";
+import { CHAT_LIST_SUCCESS, CHAT_USECASE_SUCCESS, GPT_LIST_SUCCESS } from "../constants/chatConstants";
 
 export const chatListReducer = (
-  state = { chatList: [], chatHead: [], totalElements: 0 },
+  state = { gptList: [], chatList: [], chatUsecase: [], totalElements: 0 },
   action
 ) => {
   switch (action.type) {
+    case GPT_LIST_SUCCESS:
+      return {
+        ...state,
+        gptList: action.payload,
+      };
+    case CHAT_USECASE_SUCCESS:
+      return {
+        ...state,
+        chatUsecase: action.payload,
+      };
     case CHAT_LIST_SUCCESS:
       return {
         ...state,
-        chatList: action.payload.data,
-      };
-    case CHAT_HAEDLIST_SUCCESS:
-      return {
-        ...state,
-        chatHead: action.payload.data,
+        chatList: action.payload,
       };
     default:
       return state;

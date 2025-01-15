@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RightPanelComponent from "./RightPanelComponent";
 import LeftPanelComponent from "./LeftPanelComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { getGptAction } from "../redux/actions/ChatConversationAction";
 
 
 const PageContentComponent = (props) => {
-  const [selectedList, setSelectedList] = useState('Searching Orders');
+  const [selectedUseCase, setSelectedUseCase] = useState(null);
+  const getGptData = useSelector(state => state.chatListData?.gptList);
+  const [activeGptDetails, setActiveGptDetails] = useState({});
+
+  const dispatch = useDispatch();
   
   const selectListHandler = (listData) => {
-    setSelectedList(listData);
+    setSelectedUseCase(listData);
   }
+
+  const getGpts = async() => {
+    const getGptDetails = await dispatch(getGptAction());
+  }
+
+  useEffect(()=>{
+    getGpts();
+  },[]);
+  
+  useEffect(()=>{
+    const activeGpt = getGptData?.filter((item)=>item.description==='Nia')[0] ? getGptData?.filter((item)=>item.description==='Nia')[0] : {};
+    setActiveGptDetails(activeGpt);
+  },[getGptData]);
+
   return (
     <div className="nia-body">
       <div
@@ -17,11 +37,11 @@ const PageContentComponent = (props) => {
         }`}
       >
         <div className="nia-left-panel-container">
-          <LeftPanelComponent selectListHandler={selectListHandler} selectedList={selectedList} />
+          <LeftPanelComponent activeGptDetails={activeGptDetails} selectListHandler={selectListHandler} />
         </div>
       </div>
       <div className="nia-body-right-panel">
-        <RightPanelComponent selectedList={selectedList} />
+        <RightPanelComponent selectedUseCase={selectedUseCase} activeGptDetails={activeGptDetails} />
       </div>
     </div>
   );

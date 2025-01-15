@@ -614,7 +614,7 @@ body, html {
 .nia-chat-attachment{
   position: absolute;
   height: 32px;
-  width: 100%;
+  width: 32px;
   opacity: 0;
   filter: opacity(0);
   cursor: pointer;

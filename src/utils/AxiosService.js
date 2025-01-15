@@ -1,6 +1,6 @@
 import axios from "axios";
 //  const BASE_URL ="https://dev.configurator.robotics.abb.com/"
-const BASE_URL ='http://10.169.117.244:8080/'; //Aniesh
+const BASE_URL ='https://customgptapp.azurewebsites.net/'; //Aniesh
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -54,7 +54,7 @@ const formHeader = () => {
     const auth_token = localStorage.getItem('auth_token');
     return {headers: {
        "Content-Type": "multipart/form-data",
-       "auth_token": `Bearer ${auth_token}`
+       //"auth_token": `Bearer ${auth_token}`
      }}
  }
  
@@ -62,26 +62,37 @@ const formHeader = () => {
     const auth_token = localStorage.getItem('auth_token');
     return {headers: {
        "Content-Type": "application/json",
-       "auth_token": `Bearer ${auth_token}`
+       //"auth_token": `Bearer ${auth_token}`
      }};
  }
 
  const chatServices = {
-     async chatHead(userId) {
-        return  await axiosInstance.get(`api/admin/chatHead?userId=${userId}`, jsonHeader())
+     async getGps() {
+        return  await axios.get(`get_gpts`, jsonHeader())
      }, 
 
-     async listChat(userId) {
-        return  await axiosInstance.get(`api/admin/listChat?userId=${userId}`, jsonHeader())
-     }, 
-
-     async deleteChat(id){
-        return await axiosInstance.delete(`api/admin/delete/${id}`, jsonHeader())
+     async getUsecase() {
+      return  await axios.get(`usecases/${gpt_id}`, jsonHeader())
      },
 
-     async submitChat(payload, userId){
-        return await axiosInstance.post(`api/admin/submitChat?userId=${userId}`, payload, jsonHeader())
-     }
+     async postChat(formData, gpt_id, gpt_name) {
+        return  await axios.post(`chat/${gpt_id}/${gpt_name}`, formData, formHeader())
+     },
+
+     async chatHistory(gpt_id, gpt_name) {
+        return  await axios.get(`chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
+     }, 
+
+     async clearChathistory(gpt_id, gpt_name){
+        return await axios.delete(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
+     },
+
+     async updateInstruction(gpt_id, gpt_name, usecase_id) {
+        return  await axios.put(`update_instruction/${gpt_id}/${gpt_name}/${usecase_id}`, jsonHeader())
+    }, 
+
+      
+     
 }
 
  export {BASE_URL, chatServices};
