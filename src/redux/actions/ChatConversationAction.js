@@ -8,24 +8,25 @@ import GET_USECASE from "../../jsonfiles/get_usecase.json";
 export const getGptAction = () => async(dispatch) =>{
     try {
         dispatch({type:GET_LOADING_SHOW});
-        const response1 = await chatServices.getGps();
+        const response = await chatServices.getGps();
         //const response = GET_GPTS.gpts;
-        dispatch({type:GPT_LIST_SUCCESS, payload: response })
+        dispatch({type:GPT_LIST_SUCCESS, payload: response.data.gpts })
         dispatch({type:GET_LOADING_HIDE});
-        return response;
+        return response.data.gpts;
       } catch (error) {
           dispatch({type:GET_LOADING_HIDE});
       }
 }
 
 export const getUsecaseAction = (gpt_id) => async(dispatch) =>{
+    console.log(gpt_id);
     try {
         dispatch({type:GET_LOADING_SHOW});
         const response = await chatServices.getUsecase(gpt_id);
         // const response = GET_USECASE.usecases;
-        dispatch({type:CHAT_USECASE_SUCCESS, payload: response })
+        dispatch({type:CHAT_USECASE_SUCCESS, payload: response.data.usecases })
         dispatch({type:GET_LOADING_HIDE});
-        return response;
+        return response.data.usecases;
       } catch (error) {
           dispatch({type:GET_LOADING_HIDE});
       }

@@ -1,6 +1,7 @@
 import axios from "axios";
 //  const BASE_URL ="https://dev.configurator.robotics.abb.com/"
-const BASE_URL ='https://customgptapp.azurewebsites.net/'; //Aniesh
+// const BASE_URL ='https://customgptapp.azurewebsites.net/'; //Aniesh
+const BASE_URL ='http://localhost:8000/';
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -71,7 +72,8 @@ const formHeader = () => {
         return  await axios.get(`get_gpts`, jsonHeader())
      }, 
 
-     async getUsecase() {
+     async getUsecase(gpt_id) {
+      console.log("gpt_id", gpt_id);
       return  await axios.get(`usecases/${gpt_id}`, jsonHeader())
      },
 
@@ -88,7 +90,7 @@ const formHeader = () => {
      },
 
      async updateInstruction(gpt_id, gpt_name, usecase_id) {
-        return  await axios.put(`update_instruction/${gpt_id}/${gpt_name}/${usecase_id}`, jsonHeader())
+        return  await axios.post(`update_instruction/${gpt_id}/${gpt_name}/${usecase_id}`, jsonHeader())
     }, 
 
       

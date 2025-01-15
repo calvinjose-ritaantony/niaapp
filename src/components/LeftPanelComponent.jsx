@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUpdateInstructionAction, getUsecaseAction } from '../redux/actions/ChatConversationAction';
 
-const LeptPanelComponent = (props) => {
+const LeftPanelComponent = (props) => {
   const chatHead = useSelector((state)=>state.chatListData.chatHead);
   const userData = useSelector((state)=>state.userList.userInfo);
   const [selectedUseCase, setSelectedUseCase] = useState({});
@@ -10,11 +10,12 @@ const LeptPanelComponent = (props) => {
   const usecaseData = useSelector(state=>state.chatListData.chatUsecase);
   const dispatch = useDispatch();
   const getChatHead = async() =>{
-    const chatHeadListData = await dispatch(getUsecaseAction(props.activeGptDetails?._id));
+    console.log(props.activeGptDetails);
+    const chatHeadListData = props.activeGptDetails?._id && await dispatch(getUsecaseAction(props.activeGptDetails?._id));
   }
   useEffect(()=>{
     getChatHead();
-  },[]);
+  },[props.activeGptDetails]);
 
   useEffect(()=>{
     setChatHeadList(usecaseData);
@@ -41,4 +42,4 @@ const LeptPanelComponent = (props) => {
   )
 }
 
-export default LeptPanelComponent
+export default LeftPanelComponent
