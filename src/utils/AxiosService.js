@@ -5,8 +5,12 @@ const BASE_URL ='http://localhost:8000/';
 
 axios.defaults.baseURL = BASE_URL;
 
-
-
+axios.interceptors.request.use(config => {
+  if (config.url.includes('customgpt')) {
+    config.baseURL = 'https://customgptapp.azurewebsites.net/';
+  }
+  return config;
+});
 
 ////// Interceptor
 const axiosInstance = axios.create({
@@ -78,20 +82,20 @@ const formHeader = () => {
      },
 
      async postChat(formData, gpt_id, gpt_name) {
-        gpt_id = "677e4c6aad77774d621935f0";
+        gpt_id = "6787c2f96368ac3ad473ad4e";
         gpt_name = "Nia"; 
         //"ecommerce-rag-demo";
         return  await axios.post(`chat/${gpt_id}/${gpt_name}`, formData, formHeader())
      },
 
      async chatHistory(gpt_id, gpt_name) {
-        gpt_id = "677e4c6aad77774d621935f0";
+        gpt_id = "6787c2f96368ac3ad473ad4e";
         gpt_name = "Nia";
         return  await axios.get(`chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
      }, 
 
      async clearChathistory(gpt_id, gpt_name){
-        gpt_id = "677e4c6aad77774d621935f0";
+        gpt_id = "6787c2f96368ac3ad473ad4e";
         gpt_name = "Nia"; 
         return await axios.put(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
      },
