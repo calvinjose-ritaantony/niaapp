@@ -78,15 +78,22 @@ const formHeader = () => {
      },
 
      async postChat(formData, gpt_id, gpt_name) {
+        gpt_id = "677e4c6aad77774d621935f0";
+        gpt_name = "Nia"; 
+        //"ecommerce-rag-demo";
         return  await axios.post(`chat/${gpt_id}/${gpt_name}`, formData, formHeader())
      },
 
      async chatHistory(gpt_id, gpt_name) {
+        gpt_id = "677e4c6aad77774d621935f0";
+        gpt_name = "Nia";
         return  await axios.get(`chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
      }, 
 
      async clearChathistory(gpt_id, gpt_name){
-        return await axios.delete(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
+        gpt_id = "677e4c6aad77774d621935f0";
+        gpt_name = "Nia"; 
+        return await axios.put(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
      },
 
      async updateInstruction(gpt_id, gpt_name, usecase_id) {

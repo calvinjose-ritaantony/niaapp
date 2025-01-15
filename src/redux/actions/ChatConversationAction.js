@@ -1,8 +1,8 @@
 import { chatServices } from "../../utils/AxiosService";
 import { GET_LOADING_HIDE, GET_LOADING_SHOW } from "../constants/commonConstants";
-import { CHAT_USECASE_SUCCESS, GPT_LIST_SUCCESS } from "../constants/chatConstants";
-import GET_GPTS from "../../jsonfiles/get_gpt.json";
-import GET_USECASE from "../../jsonfiles/get_usecase.json";
+import { CHAT_LIST_SUCCESS, CHAT_USECASE_SUCCESS, GPT_LIST_SUCCESS } from "../constants/chatConstants";
+//import GET_GPTS from "../../jsonfiles/get_gpt.json";
+//import GET_USECASE from "../../jsonfiles/get_usecase.json";
 
 
 export const getGptAction = () => async(dispatch) =>{
@@ -33,10 +33,11 @@ export const getUsecaseAction = (gpt_id) => async(dispatch) =>{
 }
 
 export const postChatAction = (formData, gpt_id, gpt_name) => async(dispatch) =>{
+    console.log(gpt_id + " "+gpt_name);
     try {
         dispatch({type:GET_LOADING_SHOW});
         const response = await chatServices.postChat(formData, gpt_id, gpt_name);
-        dispatch({type:CHAT_LIST_SUCCESS, payload: response.data })
+        //dispatch({type:CHAT_LIST_SUCCESS, payload: response.data })
         dispatch({type:GET_LOADING_HIDE});
         return response.data;
       } catch (error) {
@@ -48,9 +49,12 @@ export const getChatHistoryAction = (gpt_id, gpt_name) => async(dispatch) =>{
     try {
         dispatch({type:GET_LOADING_SHOW});
         const response = await chatServices.chatHistory(gpt_id, gpt_name);
-        dispatch({type:CHAT_LIST_SUCCESS, payload: response.data })
+        console.log(response.data.chat_history);
+        //dispatch({type:CHAT_LIST_SUCCESS, payload: response.data.chat_history });
+        dispatch({type:CHAT_LIST_SUCCESS, payload: response.data.chat_history })
         dispatch({type:GET_LOADING_HIDE});
-        return response.data;
+        console.log("response.data.chat_history", response.data.chat_history);
+        return response.data.chat_history;
       } catch (error) {
           dispatch({type:GET_LOADING_HIDE});
       }

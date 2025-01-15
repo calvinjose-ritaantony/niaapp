@@ -25,8 +25,8 @@ const PageContentComponent = (props) => {
   },[]);
   
   useEffect(()=>{
-    console.log(getGptData);
     const activeGpt = getGptData?.filter((item)=>item.description==='Nia')[0] ? getGptData?.filter((item)=>item.description==='Nia')[0] : {};
+    console.log(activeGpt);
     setActiveGptDetails(activeGpt);
   },[getGptData]);
 

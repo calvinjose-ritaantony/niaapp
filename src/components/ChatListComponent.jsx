@@ -2,11 +2,22 @@ import React from 'react';
 import OptionVertical from '/images/options-vertical.svg';
 import EditOption from '/images/edit.svg';
 import DeleteOption from '/images/delete.svg';
-const ChatListComponent = () => {
+const ChatListComponent = (props) => {
+
+    // Replace the \n with <br/> tag for formatted response
+    const formatContent = (content) => {
+        return content.split('\n').map((item, index) => (
+            <React.Fragment key={index}>
+                {item}
+                <br />
+            </React.Fragment>
+        ));
+    };
+
   return (
     <div className='nia-chat-list-item'>
-            <div className='nia-chat-list-q'>
-                <div className='nia-chat-question'>Chat question goes here</div>
+            {props.chatData.role === "user" && <div className='nia-chat-list-q'>
+                <div className='nia-chat-question'>{formatContent(props.chatData.content)}</div>
                 {/* <div className='nia-chat-action'>
                     <div className='nia-chat-action-btn'><img src={OptionVertical} alt={'Action'} /></div>
                     <div className='nia-chat-action-list'>
@@ -16,22 +27,13 @@ const ChatListComponent = () => {
                         </ul>
                     </div>
                 </div> */}
-            </div>
-            <div className='nia-chat-list-a'>
+            </div> }
+            {props.chatData.role === "assistant" && <div className='nia-chat-list-a'>
                 <div className='nia-chat-profile'>NIA</div>
                 <div className='nia-chat-answer'>
-                    What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the
-                    printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an
-                    unknown printer took a galley of type and scrambled it to make a
-                    type specimen book. It has survived not only five centuries, but
-                    also the leap into electronic typesetting, remaining essentially
-                    unchanged. It was popularised in the 1960s with the release of
-                    Letraset sheets containing Lorem Ipsum passages, and more recently
-                    with desktop publishing software like Aldus PageMaker including
-                    versions of Lorem Ipsum.
+                {formatContent(props.chatData.content)}
                 </div>
-            </div>
+            </div>}
         </div>
   )
 }

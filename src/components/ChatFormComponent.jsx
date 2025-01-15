@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Send_Icon from "/images/paperplane.svg";
 import Attach_Icon from "/images/paperclip.svg";
 import Config_Icon from "/images/settings-arrows.svg";
-import { postChatAction } from "../redux/actions/ChatConversationAction";
+import { getChatHistoryAction, postChatAction } from "../redux/actions/ChatConversationAction";
 import { useDispatch } from "react-redux";
+import { CHAT_INPUT_SUCCESS } from "../redux/constants/chatConstants";
 
 const ChatFormComponent = (props) => {
   const [textRows, setTextRows] = useState(1);
+  const [chatInput, setChatInput] = useState("");
   const [chatFile, setChatFile] = useState(null);
   const [params, setParams] = useState({max_tokens:"800",temperature:"0.7",top_p:"0.95",frequency_penalty:"0",presence_penalty:"0"});
   const [gptId, setGptId] = useState(props.activeGptDetails?._id);
@@ -15,14 +17,24 @@ const ChatFormComponent = (props) => {
   const dispatch = useDispatch();
 
   const submitHandler = async() => {
+    const defaultFile = new Blob(["dummy"], { type: "application/octet-stream" });
     const formData = new FormData();
-    formData.append("user_message", textRows);
-    formData.append("uploadedImage", chatFile);
-    formData.append("params", params);
+    formData.append("user_message", chatInput);
+    formData.append("uploadedImage", chatFile ? chatFile : defaultFile);
+    formData.append("params", JSON.stringify(params));
+    dispatch({type: CHAT_INPUT_SUCCESS, payload: chatInput});
     const data = await dispatch(postChatAction(formData, gptId, gptName));
+    const getChatHistory = await dispatch(getChatHistoryAction(gptId, gptName));
+    setChatInput("");
+    dispatch({type: CHAT_INPUT_SUCCESS, payload: null});
   }
-  
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      submitHandler();
+    }
+  };
 
   return (
     <div
@@ -36,9 +48,14 @@ const ChatFormComponent = (props) => {
           id="chat-input"
           className="nia-input-text"
           rows={textRows}
+          value={chatInput}
           onFocus={() => setTextRows(5)}
           onBlur={() => setTextRows(1)}
-        ></textarea>
+          onChange={(e) => setChatInput(e.target.value)}
+          onKeyDown={handleKeyPress}
+        >
+          {chatInput}
+        </textarea>
       </label>
       <div className="nia-chat-btn-container">
         <button className="btn nia-chat-btn" onClick={submitHandler}>
@@ -52,7 +69,9 @@ const ChatFormComponent = (props) => {
             className="nia-chat-attachment"
             onChange={(event) => {
               const file = event.target.files[0];
-              if(file){setChatFile(file)}
+              if (file) {
+                setChatFile(file);
+              }
             }}
           />
           <img src={Attach_Icon} alt={"Attach"} />
