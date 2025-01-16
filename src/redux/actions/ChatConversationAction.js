@@ -8,7 +8,7 @@ import { CHAT_LIST_SUCCESS, CHAT_USECASE_SUCCESS, GPT_LIST_SUCCESS } from "../co
 export const getGptAction = () => async(dispatch) =>{
     try {
         dispatch({type:GET_LOADING_SHOW});
-        const response = await chatServices.getGps();
+        const response = await chatServices.getGpts();
         //const response = GET_GPTS.gpts;
         dispatch({type:GPT_LIST_SUCCESS, payload: response.data.gpts })
         dispatch({type:GET_LOADING_HIDE});

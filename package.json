@@ -11,10 +11,13 @@
     "start": "serve -s dist"
   },
   "dependencies": {
+    "@azure/msal-browser": "^4.0.1",
+    "@azure/msal-react": "^3.0.1",
     "@popperjs/core": "^2.11.8",
     "@redux-devtools/extension": "^3.3.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "express": "^4.18.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.2.0",

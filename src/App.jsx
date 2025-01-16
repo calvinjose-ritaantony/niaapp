@@ -4,7 +4,9 @@ import './fonts/nia-fonts.css';
 import './App.css';
 import HeaderComponent from './components/HeaderComponent'
 import PageContentComponent from './components/PageContentComponent'
+import LoginComponent from './components/LoginComponent'
 import { useState } from 'react';
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 
 function App() {
   const [showLeftPanel, setShowLeftPanel] = useState(false);
@@ -14,8 +16,14 @@ function App() {
   return (
     <>
     <div className='main'>
-      <HeaderComponent toggleLeftPanel={toggleLeftPanel} showLeftPanel={showLeftPanel} />
-      <PageContentComponent showLeftPanel={showLeftPanel} />
+      <AuthenticatedTemplate>
+        <HeaderComponent toggleLeftPanel={toggleLeftPanel} showLeftPanel={showLeftPanel} />
+        <PageContentComponent showLeftPanel={showLeftPanel} />
+      </AuthenticatedTemplate>
+
+      <UnauthenticatedTemplate>
+          <LoginComponent />
+      </UnauthenticatedTemplate>
     </div>
     </>
   )
