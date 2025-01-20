@@ -7,9 +7,9 @@ import App from './App.jsx'
 import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
 
-const client_id = `${import.meta.env.CLIENT_ID}`;
-const authority = `${import.meta.env.AUTHORITY_URL}`+"/"+`${import.meta.env.TENANT_ID}`;
-const redirect_uri = `${import.meta.env.REDIRECT_URI}`;
+// const client_id = `${import.meta.env.CLIENT_ID}`;
+// const authority = `${import.meta.env.AUTHORITY_URL}`+"/"+`${import.meta.env.TENANT_ID}`;
+// const redirect_uri = `${import.meta.env.REDIRECT_URI}`;
 
 // const msalConfiguration_local = {
 //   auth: {
