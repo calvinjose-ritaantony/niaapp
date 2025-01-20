@@ -2,11 +2,20 @@ import React from 'react';
 import BOSCH_Logo from '/images/bosch-logo.svg';
 import Profile_Icon from '/images/my-brand-frame.svg';
 import ToggleLeft from '/images/list-view-mobile.svg';
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 
 const HeaderComponent = (props) => {
+  const { instance, accounts } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+
   const togglePanel = () =>{
     props.toggleLeftPanel(!props.showLeftPanel);
   }
+
+  const handleLogout = () => {
+    instance.logoutRedirect(); // Redirects to the logout page and clears session
+  };
+
   return (
     <div className='nia-header'>
         <div className='nia-header-container'>
@@ -18,12 +27,20 @@ const HeaderComponent = (props) => {
             </div>
             <div className='nia-brand-title'><span>NextGen Intelligent Assistant</span></div>
             <div className='nia-profile'>
-                <span className='nia-welcome-text'>
-                  Welcome! Dharmeswaram!
-                </span>
-                <span className='nia-separator'></span>
-                {/* <img src={Profile_Icon} alt={'Profile'} /> */}
-                <span className='nia-logout'>Logout</span>
+                {isAuthenticated ? (
+                <>
+                  <span className="nia-welcome-text">
+                    Welcome! {accounts[0]?.name || "User"}!
+                  </span>
+                  <span className="nia-separator"></span>
+                  {/* <img src={Profile_Icon} alt={'Profile'} /> */}
+                  <span className="nia-logout" onClick={handleLogout}>
+                    Logout
+                  </span>
+                </>
+              ) : (
+                <span className="nia-welcome-text">Welcome! Guest!</span>
+              )}
             </div>
         </div>
         
