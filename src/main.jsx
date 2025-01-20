@@ -34,7 +34,6 @@ const msalConfiguration_azure = {
 //https://niaapp-eaakgacxa4hsa3b4.australiaeast-01.azurewebsites.net/.auth/login/aad/callback
 
 const pca = new PublicClientApplication(msalConfiguration_azure);
-
 createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <MsalProvider instance={pca}>
