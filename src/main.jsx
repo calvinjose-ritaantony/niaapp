@@ -11,15 +11,15 @@ const client_id = `${import.meta.env.CLIENT_ID}`;
 const authority = `${import.meta.env.AUTHORITY_URL}`+"/"+`${import.meta.env.TENANT_ID}`;
 const redirect_uri = `${import.meta.env.REDIRECT_URI}`;
 
-const msalConfiguration_local = {
-  auth: {
-      clientId : "53ddbbab-4e8b-4327-98d1-35c42d3329b3",
-      authority: "https://login.microsoftonline.com/6e50f04c-22d7-4b8e-8fa2-08f577dfa5aa", // Replace with your Azure AD tenant ID
-      // the only mandatory field in this object, uniquely identifies your app
-      // here you'll add the other fields that you might need based on the Azure portal settings
-      redirectUri: "http://localhost:5173" // Register as a SPA. This must match the redirect uri in Azure App Registration
-  }
-};
+// const msalConfiguration_local = {
+//   auth: {
+//       clientId : "53ddbbab-4e8b-4327-98d1-35c42d3329b3",
+//       authority: "https://login.microsoftonline.com/6e50f04c-22d7-4b8e-8fa2-08f577dfa5aa", // Replace with your Azure AD tenant ID
+//       // the only mandatory field in this object, uniquely identifies your app
+//       // here you'll add the other fields that you might need based on the Azure portal settings
+//       redirectUri: "http://localhost:5173" // Register as a SPA. This must match the redirect uri in Azure App Registration
+//   }
+// };
 
 const msalConfiguration_azure = {
   auth: {
