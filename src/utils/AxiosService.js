@@ -5,14 +5,6 @@ const BASE_URL ='https://customgptapp.azurewebsites.net/';
 
 axios.defaults.baseURL = BASE_URL;
 
-// axios.interceptors.request.use(config => {
-//   if (config.url.includes('customgpt')) {
-//     config.baseURL = 'https://customgptapp.azurewebsites.net/';
-//   }
-//   return config;
-// });
-
-////// Interceptor
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
