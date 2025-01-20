@@ -11,7 +11,7 @@ const LoginComponent = () => {
     }
   }, [instance, accounts]);
 
-  return "Authenticating..."; // Optional: You can display a loading spinner or message
+  return "Authenticating...."; // Optional: You can display a loading spinner or message
 };
 
 export default LoginComponent;
