@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
 
 const LoginComponent = () => {
-  const { instance } = useMsal();
+  const { instance, accounts } = useMsal();
 
-  const handleLogin = () => {
-    instance.loginRedirect();
-  };
+  useEffect(() => {
+    if (accounts.length === 0) {
+      // Only redirect if no active account is found
+      instance.loginRedirect();
+    }
+  }, [instance, accounts]);
 
-  return <button onClick={handleLogin}>Sign In</button>;
+  return "Authenticating..."; // Optional: You can display a loading spinner or message
 };
 
 export default LoginComponent;
