@@ -5,8 +5,8 @@ import ChatFormComponent from './ChatFormComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearChatHistoryAction } from '../redux/actions/ChatConversationAction';
 import LoaderComponent from '../sharedComponent/LoaderComponent';
-import ThinkingAnimation from '../sharedComponent/ThinkingAnimation';
-import Think from '/images/umm.gif'
+// import ThinkingAnimation from '../sharedComponent/ThinkingAnimation';
+// import Think from '/images/umm.gif'
 
 const RightPanelComponent = (props) => {
   const [gptId, setGptId] = useState(props.activeGptDetails?._id);
