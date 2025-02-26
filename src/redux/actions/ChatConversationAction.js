@@ -19,7 +19,6 @@ export const getGptAction = () => async(dispatch) =>{
 }
 
 export const getUsecaseAction = (gpt_id) => async(dispatch) =>{
-    console.log(gpt_id);
     try {
         dispatch({type:GET_LOADING_SHOW});
         const response = await chatServices.getUsecase(gpt_id);
@@ -33,30 +32,27 @@ export const getUsecaseAction = (gpt_id) => async(dispatch) =>{
 }
 
 export const postChatAction = (formData, gpt_id, gpt_name) => async(dispatch) =>{
-    console.log(gpt_id + " "+gpt_name);
     try {
-        dispatch({type:GET_LOADING_SHOW});
+        //dispatch({type:GET_LOADING_SHOW});
         const response = await chatServices.postChat(formData, gpt_id, gpt_name);
         //dispatch({type:CHAT_LIST_SUCCESS, payload: response.data })
-        dispatch({type:GET_LOADING_HIDE});
+        //dispatch({type:GET_LOADING_HIDE});
         return response.data;
       } catch (error) {
-          dispatch({type:GET_LOADING_HIDE});
+          //dispatch({type:GET_LOADING_HIDE});
       }
 }
 
 export const getChatHistoryAction = (gpt_id, gpt_name) => async(dispatch) =>{
     try {
-        dispatch({type:GET_LOADING_SHOW});
+        //dispatch({type:GET_LOADING_SHOW});
         const response = await chatServices.chatHistory(gpt_id, gpt_name);
-        console.log(response.data.chat_history);
         //dispatch({type:CHAT_LIST_SUCCESS, payload: response.data.chat_history });
         dispatch({type:CHAT_LIST_SUCCESS, payload: response.data.chat_history })
-        dispatch({type:GET_LOADING_HIDE});
-        console.log("response.data.chat_history", response.data.chat_history);
+        //dispatch({type:GET_LOADING_HIDE});
         return response.data.chat_history;
       } catch (error) {
-          dispatch({type:GET_LOADING_HIDE});
+          //dispatch({type:GET_LOADING_HIDE});
       }
 }
 

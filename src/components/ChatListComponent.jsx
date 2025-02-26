@@ -6,12 +6,16 @@ const ChatListComponent = (props) => {
 
     // Replace the \n with <br/> tag for formatted response
     const formatContent = (content) => {
-        return content.split('\n').map((item, index) => (
-            <React.Fragment key={index}>
-                {item}
-                <br />
-            </React.Fragment>
-        ));
+        if(content.startsWith("data:image/jpeg;")){
+            return <img src={content} style={{maxWidth: '700px'}} />
+        }else{
+            return content.split('\n').map((item, index) => (
+                <React.Fragment key={index}>
+                    {item}
+                    <br />
+                </React.Fragment>
+            ));
+        }
     };
 
   return (

@@ -10,7 +10,6 @@ const LeftPanelComponent = (props) => {
   const usecaseData = useSelector(state=>state.chatListData.chatUsecase);
   const dispatch = useDispatch();
   const getChatHead = async() =>{
-    console.log(props.activeGptDetails);
     const chatHeadListData = props.activeGptDetails?._id && await dispatch(getUsecaseAction(props.activeGptDetails?._id));
   }
   useEffect(()=>{

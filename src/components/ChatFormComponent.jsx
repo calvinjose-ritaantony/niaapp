@@ -5,32 +5,60 @@ import Config_Icon from "/images/settings-arrows.svg";
 import { getChatHistoryAction, postChatAction } from "../redux/actions/ChatConversationAction";
 import { useDispatch } from "react-redux";
 import { CHAT_INPUT_SUCCESS } from "../redux/constants/chatConstants";
+import { GET_LOADING_HIDE, GET_LOADING_SHOW } from "../redux/constants/commonConstants";
 
 const ChatFormComponent = (props) => {
   const [textRows, setTextRows] = useState(1);
   const [chatInput, setChatInput] = useState("");
   const [chatFile, setChatFile] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
   const [params, setParams] = useState({max_tokens:"800",temperature:"0.7",top_p:"0.95",frequency_penalty:"0",presence_penalty:"0"});
   const [gptId, setGptId] = useState(props.activeGptDetails?._id);
   const [gptName, setGptName] = useState(props.activeGptDetails?.name);
 
   const dispatch = useDispatch();
 
+  // Handle file input change
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setChatFile(selectedFile);
+      // If the file is an image, generate a thumbnail preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setThumbnail(reader.result); // Set the image preview
+      };
+      reader.readAsDataURL(selectedFile); // Read file as Data URL for image preview
+    }
+  };
+
+  const removeFile = () => {
+    setChatFile(null);
+    setThumbnail(null);
+  }
+
   const submitHandler = async() => {
     const defaultFile = new Blob(["dummy"], { type: "application/octet-stream" });
     const formData = new FormData();
+    props.scrollToTop();
     formData.append("user_message", chatInput);
     formData.append("uploadedImage", chatFile ? chatFile : defaultFile);
     formData.append("params", JSON.stringify(params));
     dispatch({type: CHAT_INPUT_SUCCESS, payload: chatInput});
+    //dispatch({type: GET_LOADING_SHOW});
+    setChatInput("");
+    setChatFile(null);
+    setThumbnail(null);
     const data = await dispatch(postChatAction(formData, gptId, gptName));
     const getChatHistory = await dispatch(getChatHistoryAction(gptId, gptName));
-    setChatInput("");
+    props.scrollToTop();
+    //dispatch({type: GET_LOADING_HIDE});
     dispatch({type: CHAT_INPUT_SUCCESS, payload: null});
   }
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
+      props.scrollToTop();
       event.preventDefault();
       submitHandler();
     }
@@ -58,6 +86,13 @@ const ChatFormComponent = (props) => {
         </textarea>
       </label>
       <div className="nia-chat-btn-container">
+        {thumbnail && <div className="attachement-container">
+          <img
+            src={thumbnail}
+            alt="Thumbnail"
+          />
+          <div className="delete-file" onClick={removeFile}></div>
+        </div>}
         <button className="btn nia-chat-btn" onClick={submitHandler}>
           <img src={Send_Icon} alt={"Send"} />
         </button>
@@ -67,12 +102,7 @@ const ChatFormComponent = (props) => {
             name="nia-attachment"
             id="nia-attachment"
             className="nia-chat-attachment"
-            onChange={(event) => {
-              const file = event.target.files[0];
-              if (file) {
-                setChatFile(file);
-              }
-            }}
+            onChange={handleFileChange}
           />
           <img src={Attach_Icon} alt={"Attach"} />
         </button>

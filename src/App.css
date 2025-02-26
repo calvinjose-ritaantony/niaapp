@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
 }
 
 #root {
@@ -285,8 +285,10 @@ body, html {
 }
 
 .nia-left-panel-list ul li:hover, .nia-left-panel-list ul li.active{
-  background-color: #1D64A8;
+  background-color: #FFFFFF;
+  color: #1D64A8;
   width: 300px;
+  font-family: var(--nia-fw-bd);
 }
 
 /* NIA RIGHt PANEL */
@@ -295,6 +297,7 @@ body, html {
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .nia-right-panel-header{
@@ -367,6 +370,74 @@ body, html {
   align-items: center;
   width: 100%;
   position: relative;
+}
+
+.attachement-container{
+  position: absolute;
+  bottom: 30px;
+  width: 60px;
+  height: auto;
+  padding: 5px;
+  background-color: #007BC0;
+  border-radius: 10px;
+  left: 22px;
+  transition: 0.5s all ease-in-out;
+  z-index: 999;
+}
+
+.attachement-container::before{
+  content: ' ';
+  height: 1px;
+  width: 1px;
+  border: 10px solid transparent;
+  border-top-color: #007BC0;
+  border-bottom: 0px;
+  position: absolute;
+  bottom: -7px;
+  z-index: -1;
+  left: 22px;
+  pointer-events: none;
+}
+
+.attachement-container img{
+  width: 100%;
+  border-radius: 5px;
+}
+
+.attachement-container:hover{
+  transform: scale(3);
+  bottom: 100px;
+}
+
+.attachement-container:hover::before{
+  display: none;
+}
+
+.attachement-container .delete-file{
+  display: none;
+}
+
+.attachement-container:hover .delete-file{
+  display: block;
+  height: 10px;
+  width: 10px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid red;
+  border-radius: 5px;
+  background-image: url('/images/delete.svg');
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+  background-position: center center;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.attachement-container:hover .delete-file:hover{
+  background-color: #ffffff;
+  
 }
 
 .nia-chat-btn{
@@ -611,6 +682,12 @@ body, html {
 
 .nia-chat-answer, .nia-chat-question{
   color: #646464;
+}
+
+.nia-chat-answer{
+  background-color: #f4f9fd;
+  padding: 32px;
+  border-radius: 16px;
 }
 
 .nia-chat-attachment{

@@ -2,23 +2,37 @@ import React, { Fragment, useEffect, useState } from 'react';
 import ChatListComponent from './ChatListComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { getChatHistoryAction } from '../redux/actions/ChatConversationAction';
+import Think from '/images/umm.gif'
+import { GET_LOADING_HIDE, GET_LOADING_SHOW } from '../redux/constants/commonConstants';
 
 
 const ChatConversationComponent = (props) => {
   const [chatHistory, setChatHistory] = useState([]);
+  const [firstLoad, setFirstLoad] = useState(false);
   const getChathistoryData = useSelector(state=>state.chatListData?.chatList);
   const getChatInput = useSelector(state=>state.chatListData?.chatInput);
+  
   const dispatch = useDispatch();
 
   const getChatHistory = async() =>{
     if(props.activeGptDetails?._id && props.activeGptDetails?.name){
+      let showload;
+      if(!getChatInput){
+        dispatch({type: GET_LOADING_SHOW});
+        showload = true;
+      }
+      props.scrollToTop();
       const chatHistoryData = await dispatch(getChatHistoryAction(props.activeGptDetails?._id, props.activeGptDetails?.name));
-      console.log("chatHistoryData", chatHistoryData);
+      if(showload){
+        dispatch({type: GET_LOADING_HIDE});
+      }
       if (chatHistoryData && chatHistoryData.length > 0) {
         setChatHistory(chatHistoryData);
       } else {
         setChatHistory([]);
       }
+      console.log("Scroll to top");
+      props.scrollToTop();
     }
   }
 
@@ -40,6 +54,14 @@ const ChatConversationComponent = (props) => {
         <ChatListComponent />
         <ChatListComponent /> */}
         {getChatInput ? <ChatListComponent chatData={{role:'user', content: getChatInput}}/> : ''}
+        {getChatInput && 
+        <div className='nia-chat-list-item'>
+            <div className='nia-chat-list-a'>
+                <div className='nia-chat-profile'>NIA</div>
+                <div className='nia-chat-answer p-0' style={{background: 'none'}}><img src={Think} height={35} width={30} /> Thinking ...</div>
+            </div>
+        </div>
+        }
     </div>
   )
 }

@@ -4,7 +4,6 @@ export const chatListReducer = (
   state = { gptList: [], chatList: [], chatUsecase: [], chatInput:null, totalElements: 0 },
   action
 ) => {
-  console.log(action)
   switch (action.type) {
     case GPT_LIST_SUCCESS:
       return {
