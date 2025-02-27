@@ -5,6 +5,7 @@ import ChatFormComponent from './ChatFormComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearChatHistoryAction } from '../redux/actions/ChatConversationAction';
 import LoaderComponent from '../sharedComponent/LoaderComponent';
+import { formateChatHeadText } from '../utils/sharedFunction';
 // import ThinkingAnimation from '../sharedComponent/ThinkingAnimation';
 // import Think from '/images/umm.gif'
 
@@ -60,7 +61,7 @@ const RightPanelComponent = (props) => {
   return (
     <div className="nia-right-panel-container">
           <div className="nia-right-panel-header">
-            <div className="nia-right-panel-header-text">{props.selectedUseCase?.name}</div>
+            <div className="nia-right-panel-header-text">{formateChatHeadText(props.selectedUseCase?.name)}</div>
             <div className="nia-clear-chat nia-chat-btn" onClick={clearAllChat}>Clear all</div>
           </div>
           <div className="nia-right-panel-content"> 
