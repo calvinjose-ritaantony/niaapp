@@ -45,6 +45,7 @@ export const postChatAction = (formData, gpt_id, gpt_name) => async(dispatch) =>
 
 export const getChatHistoryAction = (gpt_id, gpt_name) => async(dispatch) =>{
     try {
+        //console.log("gpt_id : " + gpt_id + " gpt_name: "+  gpt_name);
         //dispatch({type:GET_LOADING_SHOW});
         const response = await chatServices.chatHistory(gpt_id, gpt_name);
         //dispatch({type:CHAT_LIST_SUCCESS, payload: response.data.chat_history });

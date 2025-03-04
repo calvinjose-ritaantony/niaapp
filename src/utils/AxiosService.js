@@ -1,8 +1,8 @@
 import axios from "axios";
 
-//const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
-const BASE_URL ="http://localhost:8000/";
-let current_use_case_id = "all";
+const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
+//const BASE_URL ="http://localhost:8000/";
+let current_use_case_id = undefined;
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -79,22 +79,27 @@ const chatServices = {
   },
 
   async postChat(formData, gpt_id, gpt_name) {
-    //gpt_id = "67c595aaed18a551e2200e56";
-    //gpt_name = "Nia";
+    gpt_id = "67975ddc2c063727d355e0b2";
+    gpt_name = "Nia";
     //"ecommerce-rag-demo";
     return await axios.post(`chat/${gpt_id}/${gpt_name}`, formData, formHeader())
   },
 
-  async chatHistory(gpt_id, gpt_name, usecase_id) {
-    //gpt_id = "67c595aaed18a551e2200e56";
-    //gpt_name = "Nia";
-    usecase_id = usecase_id == undefined ? "all" : usecase_id;
-    return await axios.get(`chat_history/${gpt_id}/${gpt_name}/${current_use_case_id}`, jsonHeader())
+  async chatHistory(gpt_id, gpt_name) {
+    gpt_id = "67975ddc2c063727d355e0b2";
+    gpt_name = "Nia";
+    console.log("Chat history");
+    let url = `chat_history/${gpt_id}/${gpt_name}`;
+    if(current_use_case_id !== undefined) {
+      url = `${url}/${current_use_case_id}`;
+    }
+    console.log(url);
+    return await axios.get(url, jsonHeader())
   },
 
   async clearChathistory(gpt_id, gpt_name) {
-    //gpt_id = "67c595aaed18a551e2200e56";
-    //gpt_name = "Nia";
+    gpt_id = "67975ddc2c063727d355e0b2";
+    gpt_name = "Nia";
     return await axios.put(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
   },
 

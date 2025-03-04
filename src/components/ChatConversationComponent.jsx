@@ -15,14 +15,15 @@ const ChatConversationComponent = (props) => {
   const dispatch = useDispatch();
 
   const getChatHistory = async() =>{
-    if(props.activeGptDetails?._id && props.activeGptDetails?.name){
+    //console.log(props.activeGptDetails);
+    if(props.activeGptDetails?._id && props.activeGptDetails?.description){
       let showload;
       if(!getChatInput){
         dispatch({type: GET_LOADING_SHOW});
         showload = true;
       }
       props.scrollToTop();
-      const chatHistoryData = await dispatch(getChatHistoryAction(props.activeGptDetails?._id, props.activeGptDetails?.name));
+      const chatHistoryData = await dispatch(getChatHistoryAction(props.activeGptDetails?._id, props.activeGptDetails?.description));
       if(showload){
         dispatch({type: GET_LOADING_HIDE});
       }

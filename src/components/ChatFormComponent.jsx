@@ -14,7 +14,7 @@ const ChatFormComponent = (props) => {
   const [thumbnail, setThumbnail] = useState(null);
   const [params, setParams] = useState({max_tokens:"800",temperature:"0.7",top_p:"0.95",frequency_penalty:"0",presence_penalty:"0"});
   const [gptId, setGptId] = useState(props.activeGptDetails?._id);
-  const [gptName, setGptName] = useState(props.activeGptDetails?.name);
+  const [gptName, setGptName] = useState(props.activeGptDetails?.description);
 
   const dispatch = useDispatch();
 
