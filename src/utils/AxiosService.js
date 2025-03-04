@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
-///const BASE_URL ="http://localhost:8000/";
+//const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
+const BASE_URL ="http://localhost:8000/";
+let current_use_case_id = "all";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -78,30 +79,29 @@ const chatServices = {
   },
 
   async postChat(formData, gpt_id, gpt_name) {
-    gpt_id = "6787c2f96368ac3ad473ad4e";
-    gpt_name = "Nia";
+    //gpt_id = "67c595aaed18a551e2200e56";
+    //gpt_name = "Nia";
     //"ecommerce-rag-demo";
     return await axios.post(`chat/${gpt_id}/${gpt_name}`, formData, formHeader())
   },
 
-  async chatHistory(gpt_id, gpt_name) {
-    gpt_id = "6787c2f96368ac3ad473ad4e";
-    gpt_name = "Nia";
-    return await axios.get(`chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
+  async chatHistory(gpt_id, gpt_name, usecase_id) {
+    //gpt_id = "67c595aaed18a551e2200e56";
+    //gpt_name = "Nia";
+    usecase_id = usecase_id == undefined ? "all" : usecase_id;
+    return await axios.get(`chat_history/${gpt_id}/${gpt_name}/${current_use_case_id}`, jsonHeader())
   },
 
   async clearChathistory(gpt_id, gpt_name) {
-    gpt_id = "6787c2f96368ac3ad473ad4e";
-    gpt_name = "Nia";
+    //gpt_id = "67c595aaed18a551e2200e56";
+    //gpt_name = "Nia";
     return await axios.put(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
   },
 
   async updateInstruction(gpt_id, gpt_name, usecase_id) {
+    current_use_case_id = usecase_id;
     return await axios.post(`update_instruction/${gpt_id}/${gpt_name}/${usecase_id}`, jsonHeader())
   },
-
-
-
 }
 
 export { BASE_URL, chatServices };
