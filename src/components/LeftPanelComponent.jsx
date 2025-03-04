@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUpdateInstructionAction, getUsecaseAction } from '../redux/actions/ChatConversationAction';
 import { formateChatHeadText } from '../utils/sharedFunction';
@@ -33,7 +33,14 @@ const LeftPanelComponent = (props) => {
     <div className='nia-left-panel-container'>
         <div className='nia-left-panel-list'>
             <ul>
-                {chatHeadList && chatHeadList.map((item,i)=> <li key={item._id} className={`${item.name === selectedUseCase.name ? 'active' : ''}`} onClick={()=>selectUseCase(item)}>{formateChatHeadText(item.name)}</li> )}
+                {chatHeadList && chatHeadList.map((item,i)=> <Fragment  key={item._id}>
+                <li className={`${item.name === selectedUseCase.name ? 'active' : ''}`} onClick={()=>selectUseCase(item)}>{formateChatHeadText(item.name)}
+                    </li>
+                    {/* <ul>
+                      <li>Sub menus</li>
+                    </ul> */}
+                    </Fragment>
+                 )}
             </ul>
         </div>
     </div>

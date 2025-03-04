@@ -2,6 +2,7 @@ import React from 'react';
 import OptionVertical from '/images/options-vertical.svg';
 import EditOption from '/images/edit.svg';
 import DeleteOption from '/images/delete.svg';
+import { MarkdownToHtml } from './MarkdownToHtml';
 const ChatListComponent = (props) => {
 
     // Replace the \n with <br/> tag for formatted response
@@ -11,8 +12,7 @@ const ChatListComponent = (props) => {
         }else{
             return content.split('\n').map((item, index) => (
                 <React.Fragment key={index}>
-                    {item}
-                    <br />
+                    <MarkdownToHtml markdownText={item} />
                 </React.Fragment>
             ));
         }

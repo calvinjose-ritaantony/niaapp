@@ -560,6 +560,11 @@ body, html {
   display: grid;
 }
 
+.nia-chat-answer div p:last-child, .nia-chat-answer div:last-child ol:last-child, .nia-chat-answer div:last-child ul:last-child,
+.nia-chat-question div p:last-child, .nia-chat-question div:last-child ol:last-child, .nia-chat-question div:last-child ul:last-child{
+  margin-bottom: 0px !important;
+}
+
 .nia-chat-list-q{
   display: flex;
   justify-self: right;
@@ -686,7 +691,7 @@ body, html {
 
 .nia-chat-answer{
   background-color: #f4f9fd;
-  padding: 32px;
+  padding: 16px 24px;
   border-radius: 16px;
 }
 
@@ -702,4 +707,17 @@ body, html {
 .nia-chat-attachment ~ img{
   pointer-events: none;
   cursor: pointer;
+}
+
+.nia-config-options{
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.nia-config-options label{
+  padding: 0px;
+  background: none;
+  min-height: 16px;
+  line-height: 16px;
+  font-size: 12px;
 }
