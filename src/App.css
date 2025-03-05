@@ -278,6 +278,9 @@ body, html {
   border-bottom: 1px solid #1D64A8;
   color: #E0E2E5;
   cursor: pointer;
+  text-wrap: nowrap;
+  transition: all 0.5s ease-in-out;
+  width: 300px;
 }
 
 .nia-left-panel-list ul li:last-child{
@@ -287,8 +290,32 @@ body, html {
 .nia-left-panel-list ul li:hover, .nia-left-panel-list ul li.active{
   background-color: #FFFFFF;
   color: #1D64A8;
-  width: 300px;
+  
   font-family: var(--nia-fw-bd);
+}
+
+.nia-left-panel-list ul.nia-left-main-menu > li{
+  border-left: 8px solid transparent;
+}
+
+.nia-left-panel-list ul.nia-left-main-menu > li:hover, .nia-left-panel-list ul.nia-left-main-menu > li.active{
+  background: transparent;
+  border-left: 8px solid white;
+  color: white;
+}
+
+.nia-left-main-menu ul{
+  padding-left: 10px;
+  display: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.nia-left-main-menu > li.active + ul{
+  display: block;
+}
+
+.nia-left-main-menu ul li:last-child{
+  border-bottom: 1px solid #1D64A8;
 }
 
 /* NIA RIGHt PANEL */
