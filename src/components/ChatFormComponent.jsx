@@ -226,7 +226,7 @@ const ChatFormComponent = (props) => {
         </button>
         <button
           className="btn nia-chat-btn"
-          onClick={() => setShowConfig(true)}
+          onClick={() => setShowConfig(!showConfig)}
         >
           <img src={Config_Icon} alt={"Config"} />
         </button>

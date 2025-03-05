@@ -7,9 +7,10 @@ const ChatListComponent = (props) => {
 
     // Replace the \n with <br/> tag for formatted response
     const formatContent = (content) => {
-        if(content.startsWith("data:image/jpeg;")){
-            return <img src={content} style={{maxWidth: '700px'}} />
-        }else{
+        if(content.startsWith("data:image/jpeg;") || content.includes("blob.core.windows.net")){
+            return <img src={content} style={{maxWidth: '200px'}} />
+        }
+        else{
             return content.split('\n').map((item, index) => (
                 <React.Fragment key={index}>
                     <MarkdownToHtml markdownText={item} />
