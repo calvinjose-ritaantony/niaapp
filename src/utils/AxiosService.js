@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
 //const BASE_URL ="http://localhost:8000/";
-let current_use_case_id = "all";
+let current_use_case_id = undefined;
 
 axios.defaults.baseURL = BASE_URL;
 

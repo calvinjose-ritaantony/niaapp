@@ -22,6 +22,16 @@ body, html {
   box-sizing: border-box;
 }
 
+pre ol, pre ul{
+  line-height: 14px;
+  margin-bottom: 0px;
+}
+
+pre{
+  margin-bottom: 8px;
+}
+
+
 .nia-fw-rg{
   font-family: var(--nia-fw-rg);
 }

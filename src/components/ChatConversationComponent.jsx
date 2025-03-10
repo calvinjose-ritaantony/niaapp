@@ -11,6 +11,7 @@ const ChatConversationComponent = (props) => {
   const [firstLoad, setFirstLoad] = useState(false);
   const getChathistoryData = useSelector(state=>state.chatListData?.chatList);
   const getChatInput = useSelector(state=>state.chatListData?.chatInput);
+  const getChatAttached = useSelector(state=>state.chatListData?.chatAttachement);
   
   const dispatch = useDispatch();
 
@@ -54,7 +55,8 @@ const ChatConversationComponent = (props) => {
         <ChatListComponent />
         <ChatListComponent />
         <ChatListComponent /> */}
-        {getChatInput ? <ChatListComponent chatData={{role:'user', content: getChatInput}}/> : ''}
+        {getChatInput ? <ChatListComponent chatData={{role: 'user', content: getChatInput}}/> : ''}
+        {getChatAttached ? <ChatListComponent chatData={{role: 'user', content: getChatAttached}}/> : ''}
         {getChatInput && 
         <div className='nia-chat-list-item'>
             <div className='nia-chat-list-a'>

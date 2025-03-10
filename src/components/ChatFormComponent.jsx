@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Send_Icon from "/images/paperplane.svg";
 import Attach_Icon from "/images/paperclip.svg";
+import pdfthumbnail from "/images/pdf.png";
+import wordthumbnail from "/images/word.png";
+import excelthumbnail from "/images/excel.png";
+import unknownthumbnail from "/images/question.png";
 import Config_Icon from "/images/settings-arrows.svg";
 import {
   getChatHistoryAction,
   postChatAction,
 } from "../redux/actions/ChatConversationAction";
 import { useDispatch } from "react-redux";
-import { CHAT_INPUT_SUCCESS } from "../redux/constants/chatConstants";
+import { CHAT_ATTACHEMENT_SUCCESS, CHAT_INPUT_SUCCESS } from "../redux/constants/chatConstants";
 
 import {
   GET_LOADING_HIDE,
@@ -22,6 +26,7 @@ const ChatFormComponent = (props) => {
   const [chatInput, setChatInput] = useState("");
   const [chatFile, setChatFile] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
+  const [thumbnailType, setthumbnailType] = useState(null);
   const [params, setParams] = useState({max_tokens:"800",temperature:"0.7",top_p:"0.95",frequency_penalty:"0",presence_penalty:"0"});
   const [gptId, setGptId] = useState(props.activeGptDetails?._id);
   const [gptName, setGptName] = useState(props.activeGptDetails?.name);
@@ -38,6 +43,7 @@ const ChatFormComponent = (props) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setThumbnail(reader.result); // Set the image preview
+        setthumbnailType(selectedFile.type); // Set the image preview
       };
       reader.readAsDataURL(selectedFile); // Read file as Data URL for image preview
     }
@@ -57,13 +63,20 @@ const ChatFormComponent = (props) => {
     formData.append("user_message", chatInput);
     formData.append("uploadedImage", chatFile ? chatFile : defaultFile);
     formData.append("params", JSON.stringify(params));
-    dispatch({ type: CHAT_INPUT_SUCCESS, payload: chatInput });
+    dispatch({ type: CHAT_INPUT_SUCCESS, payload: chatInput});
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      dispatch({ type: CHAT_ATTACHEMENT_SUCCESS, payload: reader.result});
+    };
+    reader.readAsDataURL(chatFile);
+    
     //dispatch({type: GET_LOADING_SHOW});
     setChatInput("");
     setChatFile(null);
     setThumbnail(null);
     const data = await dispatch(postChatAction(formData, gptId, gptName));
     const getChatHistory = await dispatch(getChatHistoryAction(gptId, gptName));
+    dispatch({ type: CHAT_ATTACHEMENT_SUCCESS, payload: null});
     props.scrollToTop();
     //dispatch({type: GET_LOADING_HIDE});
     dispatch({ type: CHAT_INPUT_SUCCESS, payload: null });
@@ -207,7 +220,17 @@ const ChatFormComponent = (props) => {
       <div className="nia-chat-btn-container">
         {thumbnail && (
           <div className="attachement-container">
-            <img src={thumbnail} alt="Thumbnail" />
+            {
+              chatFile && <>
+                {thumbnailType.startsWith('image/') ? <img src={thumbnail} alt="Selected Image" /> : 
+                thumbnailType === 'application/pdf' ? <img src={pdfthumbnail} alt="PDF file" /> : 
+                (thumbnailType === 'application/msword' || thumbnailType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') ? <img src={wordthumbnail} alt="Word Document" /> : 
+                (thumbnailType === 'application/vnd.ms-excel' || thumbnailType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') ? <img src={excelthumbnail} alt="Excel File" /> : 
+                <img src={unknownthumbnail} alt="Unknown file" />
+                }
+              </>
+              }
+            {/* <img src={thumbnail} alt="Thumbnail" /> */}
             <div className="delete-file" onClick={removeFile}></div>
           </div>
         )}
