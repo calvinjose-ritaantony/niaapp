@@ -5,7 +5,6 @@ import remarkGfm from "remark-gfm";
 const MarkdownToHtml = (markdownText) => {
   const [markdownContent, setMarkdownContent] = useState("");
   useEffect(()=>{
-    console.log("markdownText", markdownText);
     setMarkdownContent(markdownText.markdownText);
   },[markdownText])
 

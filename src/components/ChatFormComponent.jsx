@@ -64,11 +64,14 @@ const ChatFormComponent = (props) => {
     formData.append("uploadedImage", chatFile ? chatFile : defaultFile);
     formData.append("params", JSON.stringify(params));
     dispatch({ type: CHAT_INPUT_SUCCESS, payload: chatInput});
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      dispatch({ type: CHAT_ATTACHEMENT_SUCCESS, payload: reader.result});
-    };
-    reader.readAsDataURL(chatFile);
+    if(chatFile){
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        dispatch({ type: CHAT_ATTACHEMENT_SUCCESS, payload: reader.result});
+      };
+      reader.readAsDataURL(chatFile);
+    }
+    
     
     //dispatch({type: GET_LOADING_SHOW});
     setChatInput("");

@@ -29,6 +29,7 @@ pre ol, pre ul{
 
 pre{
   margin-bottom: 8px;
+  text-wrap: auto;
 }
 
 
