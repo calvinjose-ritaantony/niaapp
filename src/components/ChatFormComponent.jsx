@@ -18,6 +18,7 @@ import {
   GET_LOADING_SHOW,
 } from "../redux/constants/commonConstants";
 import { MarkdownToHtml } from "./MarkdownToHtml";
+import ChatFormParametersComponent from "./ChatFormParametersComponent";
 
 
 
@@ -97,17 +98,20 @@ const ChatFormComponent = (props) => {
     setParams({ ...params, [field]: value });
   };
 
-
+  const updateParams = (paramsData) => {
+    setParams({ ...paramsData });
+  }
 
   return (
     <div
       className={`nia-chat-input-container ${textRows > 1 ? "focused" : ""}`}
     >
-      {showConfig && (
-        <div className="nia-config-options d-flex">
-          <div className="pe-3">Configuration<br/>Parameters</div>
-          <div className="flex-grow-1 d-flex gap-2">
-            <div className="w-100">
+      {showConfig && (<>
+        {/* <div className="nia-config-options d-flex">
+          <div className="pe-3" style={{width: '110px'}}>Configuration<br/>Parameters</div>
+          <div className="flex-grow-1">
+            <div className="row">
+              <div className="col-4">
               <label htmlFor="max-response" className="form-label">
                 Max Response:<span className="text-primary"> ({params.max_tokens})</span>
               </label>
@@ -125,8 +129,8 @@ const ChatFormComponent = (props) => {
                   }
                 />
               </div>
-            </div>
-            <div className="w-100">
+              </div>
+              <div className="col-4">
               <label htmlFor="temperature" className="form-label">
                 Temperature:<span className="text-primary"> ({params.temperature})</span>
               </label>
@@ -144,8 +148,8 @@ const ChatFormComponent = (props) => {
                   }
                 />
               </div>
-            </div>
-            <div className="w-100">
+              </div>
+              <div className="col-4">
               <label htmlFor="top-p" className="form-label">
                 Top P:<span className="text-primary"> ({params.top_p})</span>
               </label>
@@ -161,8 +165,8 @@ const ChatFormComponent = (props) => {
                   onChange={(e) => updateConfiguration("top_p", e.target.value)}
                 />
               </div>
-            </div>
-            <div className="w-100">
+              </div>
+              <div className="col-4">
               <label htmlFor="frequency-penalty:" className="form-label">
                 Frequency Penalty:<span className="text-primary"> ({params.frequency_penalty})</span>
               </label>
@@ -180,8 +184,8 @@ const ChatFormComponent = (props) => {
                   }
                 />
               </div>
-            </div>
-            <div className="w-100">
+              </div>
+              <div className="col-4">
               <label htmlFor="presence-penalty" className="form-label">
                 Presence Penalty:<span className="text-primary"> ({params.presence_penalty})</span>
               </label>
@@ -199,9 +203,112 @@ const ChatFormComponent = (props) => {
                   }
                 />
               </div>
+              </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <ChatFormParametersComponent updateParams={updateParams} />
+        {/* <div className="nia-config-options d-flex">
+          <div className="pe-3" style={{width: '110px'}}>RAG<br/>Parameters</div>
+          <div className="flex-grow-1">
+          <div className="row">
+              <div className="col-4">
+              <label htmlFor="max-response" className="form-label">
+                Max Response:<span className="text-primary"> ({params.max_tokens})</span>
+              </label>
+              <div className="position-relative">
+                <input
+                  type="range"
+                  className="form-range"
+                  id="max-response"
+                  min="0"
+                  max="1000"
+                  step="1"
+                  value={params.max_tokens}
+                  onChange={(e) =>
+                    updateConfiguration("max_tokens", e.target.value)
+                  }
+                />
+              </div>
+              </div>
+              <div className="col-4">
+              <label htmlFor="temperature" className="form-label">
+                Temperature:<span className="text-primary"> ({params.temperature})</span>
+              </label>
+              <div className="position-relative">
+                <input
+                  type="range"
+                  className="form-range"
+                  id="temperature"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value={params.temperature}
+                  onChange={(e) =>
+                    updateConfiguration("temperature", e.target.value)
+                  }
+                />
+              </div>
+              </div>
+              <div className="col-4">
+              <label htmlFor="top-p" className="form-label">
+                Top P:<span className="text-primary"> ({params.top_p})</span>
+              </label>
+              <div className="position-relative">
+                <input
+                  type="range"
+                  className="form-range"
+                  id="top-p"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value={params.top_p}
+                  onChange={(e) => updateConfiguration("top_p", e.target.value)}
+                />
+              </div>
+              </div>
+              <div className="col-4">
+              <label htmlFor="frequency-penalty:" className="form-label">
+                Frequency Penalty:<span className="text-primary"> ({params.frequency_penalty})</span>
+              </label>
+              <div className="position-relative">
+                <input
+                  type="range"
+                  className="form-range"
+                  id="frequency-penalty:"
+                  min="-2"
+                  max="2"
+                  step="0.1"
+                  value={params.frequency_penalty}
+                  onChange={(e) =>
+                    updateConfiguration("frequency_penalty", e.target.value)
+                  }
+                />
+              </div>
+              </div>
+              <div className="col-4">
+              <label htmlFor="presence-penalty" className="form-label">
+                Presence Penalty:<span className="text-primary"> ({params.presence_penalty})</span>
+              </label>
+              <div className="position-relative">
+                <input
+                  type="range"
+                  className="form-range"
+                  id="presence-penalty"
+                  min="-2"
+                  max="2"
+                  step="0.1"
+                  value={params.presence_penalty}
+                  onChange={(e) =>
+                    updateConfiguration("presence_penalty", e.target.value)
+                  }
+                />
+              </div>
+              </div>
+            </div>
+          </div>
+        </div> */}
+        </>
       )}
       <label htmlFor="chat-input">
         <textarea
