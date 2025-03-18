@@ -58,8 +58,8 @@ const LeftPanelComponent = (props) => {
     const selectedUseCaseData = usecaseData.find((item)=>item.name === menuList[0]?.useCases?.[0]);
     setSelectedUseCase(selectedUseCaseData);
     props.selectListHandler(selectedUseCaseData);
-    setSelectedChatHead(menuList[0].name);
-    setSelectedUseCaseHead(menuList[0]?.useCases?.[0]);
+    // setSelectedChatHead(menuList[0].name);
+    // setSelectedUseCaseHead(menuList[0]?.useCases?.[0]);
   },[usecaseData]);
 
   const selectUseCase = async(item) => {

@@ -29,6 +29,8 @@ const PageContentComponent = (props) => {
     setActiveGptDetails(activeGpt);
   },[getGptData]);
 
+  console.log("activeGptDetails", activeGptDetails);
+
   return (
     <div className="nia-body">
       <div

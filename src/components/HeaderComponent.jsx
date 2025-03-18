@@ -3,10 +3,12 @@ import BOSCH_Logo from '/images/bosch-logo.svg';
 import Profile_Icon from '/images/my-brand-frame.svg';
 import ToggleLeft from '/images/list-view-mobile.svg';
 import { useMsal, useIsAuthenticated } from "@azure/msal-react";
+import { useNavigate } from 'react-router-dom';
 
 const HeaderComponent = (props) => {
   const { instance, accounts } = useMsal();
   const isAuthenticated = useIsAuthenticated();
+  const navigate = useNavigate();
 
   const togglePanel = () =>{
     props.toggleLeftPanel(!props.showLeftPanel);
@@ -21,7 +23,7 @@ const HeaderComponent = (props) => {
         <div className='nia-header-container'>
             <div className='nia-brand-name'>
                 <img src={ToggleLeft} alt={''} className='nia-toggleSliderbtn' onClick={togglePanel} />
-                <img src={BOSCH_Logo} alt='BOSCH' />
+                <img src={BOSCH_Logo} alt='BOSCH' className='nia-cursor-pointer' onClick={()=>navigate('/')} />
                 <span className='nia-brand-separator'> </span>
                 <span><span className='nia-color-BA04AE'>N</span><span className='nia-color-EB0100'>I</span><span className='nia-color-BA04AE'>A</span></span>
             </div>
