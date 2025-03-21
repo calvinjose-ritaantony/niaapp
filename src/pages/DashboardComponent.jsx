@@ -24,7 +24,7 @@ const DashboardComponent = () => {
 
   const navigate = useNavigate();
   return (
-    <div className='py-3 d-flex flex-column justify-content-center align-items-center h-100 text-center'>
+    <div className='nia-content-wraper d-flex flex-column justify-content-center align-items-center h-100 text-center'>
         <div className='pb-4'>
             <h1 className='fw-bold'>Choose Your Experience</h1>
             <p>Select the option that best describes how you'll be using our platform</p>

@@ -94,6 +94,9 @@ pre{
   position: relative;
   height: 100%;
   width: 100%;
+  max-width: 1120px;
+  padding-inline: 1rem;
+  margin: 0px auto;
 }
 
 .nia-brand-name{
@@ -272,173 +275,167 @@ pre{
 }
 
 /* NIA CONTENT */
-.nia-body{
-  flex-grow: 1;
-  background-color: white;
+.nia-container{
+  height: 100%;
+  padding-block: 2rem;
   display: flex;
-  z-index: 0;
-  position: relative;
-  height: 100%;
-  overflow: hidden;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
-.nia-body-left-panel{
+.nia-content-wraper{
   width: 100%;
-  max-width: 250px;
+  max-width: 1120px;
+  padding-inline: 1rem;
+}
+
+.nia-category-container{
+  height: 10rem;
+}
+
+.nia-category{
+  height: 10rem;
+  width: 100%;
+  position: relative;
+}
+
+.nia-category-list{
+  position: relative;
+  width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: #ffffff;
-  box-shadow: 0px -1px 10px 2px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  transition: all 1s;
-  display: none;
-}
-
-.nia-show-left-panel{
-  display: block;
-}
-
-.nia-body-right-panel{
-  flex-grow: 1;
-  height: 100%;
-  background-color: #ffffff;
-  z-index: 0;
-}
-
-@media screen and (min-width: 601px) {
-  .nia-body{
-  }
-
-  .nia-body-left-panel{
-    display: block;
-    width: 300px;
-    max-width: 30%;
-    position: relative;
-    flex-shrink: 0;
-  }
-}
-
-/* NIA LEFT PANEL */
-.nia-left-panel-container{
-  display: block;
-  height: 100%;
+  display: flex;
+  gap: 2rem;
   overflow: hidden;
-  overflow-y: auto;
-  background-color: #007BC0;
+  padding: 10px;
 }
 
-.nia-left-panel-list{
-  padding: 16px 16px 0px 16px;
-  font-size: 14px;
-}
-
-.nia-left-panel-list ul{
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-.nia-left-panel-list ul li{
-  padding: 16px;
-  border-bottom: 1px solid #1D64A8;
-  color: #E0E2E5;
-  cursor: pointer;
-  text-wrap: nowrap;
-  transition: all 0.5s ease-in-out;
-  width: 300px;
-}
-
-.nia-left-panel-list ul li:last-child{
-  border-bottom: 0px solid #1D64A8;
-}
-
-.nia-left-panel-list ul li:hover, .nia-left-panel-list ul li.active{
-  background-color: #FFFFFF;
-  color: #1D64A8;
-  
-  font-family: var(--nia-fw-bd);
-}
-
-.nia-left-panel-list ul.nia-left-main-menu > li{
-  border-left: 8px solid transparent;
-}
-
-.nia-left-panel-list ul.nia-left-main-menu > li:hover, .nia-left-panel-list ul.nia-left-main-menu > li.active{
-  background: transparent;
-  border-left: 8px solid white;
-  color: white;
-}
-
-.nia-left-main-menu ul{
-  padding-left: 10px;
+.nia-category button{
   display: none;
-  transition: all 0.5s ease-in-out;
 }
 
-.nia-left-main-menu > li.active + ul{
+.nia-category:hover button{
+  display: flex;
+}
+
+.nia-category-list .list{
+  width: 25%;
+  height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 20px;
+  background-color: white;
+  transition: all 0.5s;
+  transform: scale(1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5 ease-in-out;
+  cursor: pointer;
+}
+
+.nia-category-list .list:hover{
+  transform: scale(1.1);
+}
+
+.nia-category-btn-left, .nia-category-btn-right{
+  position: absolute;
+  top: 50%;
+  height: 50px;
+  width: 50px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #646464;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  margin-top: -25px;
+}
+
+.nia-category-btn-left{
+  left: 10px;
+}
+.nia-category-btn-right{
+  right: 10px;
+}
+
+.nia-category-btn-left:hover, .nia-category-btn-right:hover{
+  background-color: rgba(0,0,0,0.09);
+}
+
+.nia-category-btn-left::before, .nia-category-btn-right::before{
+  content: " ";
+  height: 13px;
+  width: 13px;
   display: block;
+  border-top: 1px solid #646464;
+  border-right: 1px solid #646464;
 }
 
-.nia-left-main-menu ul li:last-child{
-  border-bottom: 1px solid #1D64A8;
+.nia-category-btn-left::before{
+  transform: rotate(220deg);
+}
+.nia-category-btn-right::before{
+  transform: rotate(45deg);
 }
 
-/* NIA RIGHt PANEL */
-.nia-right-panel-container{
+.nia-category-image{
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid #646464;
+  border-radius: 50%;
+  padding: 5px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nia-category-image img{
+  height: 30px;
+  width: 30px;
+}
+
+.nia-category-content-container{
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.nia-category-content{
+  /* position: relative; */
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
+  gap: 2rem;
 }
 
-.nia-right-panel-header{
-  height: 40px;
-  padding-inline: 8px;
-  line-height: 40px;
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.03);
-  z-index: 1;
+
+.nia-category-content-header{
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-.nia-right-panel-header-text{
-  color: #1D64A8;
-  font-family: var(--nia-fw-bd);
-}
-
-.nia-right-panel-content{
+.nia-category-content-chat{
   flex-grow: 1;
-  margin-inline: 8px;
+  width: 100%;
+  overflow-y: auto;
   position: relative;
-  z-index: 0;
+  margin-bottom: 72px;
+  z-index: 9;
 }
 
 .nia-right-panel-form{
-  padding: 16px 8px;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.05);
-}
-
-@media screen and (min-width: 601px) {
-  .nia-right-panel-header{
-    height: 60px;
-    padding-inline: 32px;
-    line-height: 60px;
-  }
-  
-  .nia-right-panel-content{
-    flex-grow: 1;
-    margin-inline: 32px;
-  }
-  
-  .nia-right-panel-form{
-    padding: 32px;
-  }
+  position: absolute;
+  bottom: 2rem;
+  left: 0px;
+  right: 0px;
+  min-height: 40px;
+  background-color: white;
+  z-index: 9999;
 }
 
 /* CHAT CONTAINER */
@@ -648,10 +645,15 @@ pre{
 
 .nia-chat-list-item{
   width: 100%;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0px auto;
-  padding: 16px 0px;
+  padding: 0px;
   display: grid;
+}
+
+.nia-chat-list-item pre{
+  font-size: 1rem;
+  overflow: visible;
 }
 
 .nia-chat-answer div p:last-child, .nia-chat-answer div:last-child ol:last-child, .nia-chat-answer div:last-child ul:last-child,

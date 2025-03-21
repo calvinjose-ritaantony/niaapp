@@ -59,19 +59,17 @@ const RightPanelComponent = (props) => {
   }, []);
 
   return (
-    <div className="nia-right-panel-container">
-          <div className="nia-right-panel-header">
-            <div className="nia-right-panel-header-text">{formateChatHeadText(props.selectedUseCase?.name)}</div>
+    <div className="nia-category-content">
+          <div className="nia-category-content-header">
+            <div className="nia-category-content-text">{formateChatHeadText(props.selectedUseCase?.name)}</div>
             <div className="nia-clear-chat nia-chat-btn" onClick={clearAllChat}>Clear all</div>
           </div>
-          <div className="nia-right-panel-content"> 
+          <div className="nia-category-content-chat"> 
             <div className="nia-chat-conatiner" ref={chatContainerRef} id="scrollableDiv">
               <ChatConversationComponent selectedUseCase={props.selectedUseCase} activeGptDetails={props.activeGptDetails} scrollToTop={scrollToTop} />
             </div>
           </div>
-          {/* 
-          <ThinkingAnimation /> */}
-          {/* <img src={Think} height={50} width={50} /> */}
+          
           <div className="nia-right-panel-form">
             <div className="nia-chat-form-container">
               <ChatFormComponent activeGptDetails={props.activeGptDetails} scrollToTop={scrollToTop} />
