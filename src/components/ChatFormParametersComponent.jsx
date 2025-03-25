@@ -156,7 +156,7 @@ const ChatFormParametersComponent = (props) => {
             {parameterList && parameterList.parameters.map((parametersData, j)=>(
                 <Fragment  key={`parameterData_${parametersData.name}_${j}`}>
                 {parametersData.type==='Boolean' ? 
-                <div className="col-6 d-flex gap-2 mb-3" style={j === 0 ? { flexBasis: 'content' } : {}}>
+                <div className="col-6 d-flex gap-2 mb-3 nia-option-checkbox-container" style={j === 0 ? { flexBasis: 'content' } : {}}>
                     <input type='checkbox' id={parametersData.name} value={parametersData.name} checked={params?.[parameterList.parameterName]?.[parametersData.name]} onChange={()=>handleCheckboxChange(parameterList.parameterName, parametersData.name)} />
                     <label htmlFor={parametersData.name} className="form-label flex-grow-1 mb-0"> {parametersData.label} </label>
                 </div> : 

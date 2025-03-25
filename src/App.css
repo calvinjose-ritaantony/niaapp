@@ -32,6 +32,10 @@ pre{
   text-wrap: auto;
 }
 
+pre *{
+  font-family: var(--nia-fw-rg) !important;
+}
+
 
 .nia-fw-rg{
   font-family: var(--nia-fw-rg);
@@ -73,6 +77,7 @@ pre{
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #eff6ff;
 }
 
 /* NIA HEADER */
@@ -339,6 +344,10 @@ pre{
   transform: scale(1.1);
 }
 
+.nia-category-list .list.active{
+  font-family: var(--nia-fw-bd);
+}
+
 .nia-category-btn-left, .nia-category-btn-right{
   position: absolute;
   top: 50%;
@@ -385,7 +394,6 @@ pre{
 .nia-category-image{
   width: 4rem;
   height: 4rem;
-  border: 1px solid #646464;
   border-radius: 50%;
   padding: 5px;
   margin-bottom: 1rem;
@@ -394,10 +402,60 @@ pre{
   align-items: center;
 }
 
+.nia-category-image.nia-ca1{
+  background-color: rgba(255, 165, 0, 0.2);
+}
+.nia-category-image.nia-ca2{
+  background-color: rgba(255, 0, 0, 0.2);
+}
+.nia-category-image.nia-ca3{
+  background-color: rgba(0, 128, 0, 0.2);
+}
+.nia-category-image.nia-ca4{
+  background-color: rgba(0, 0, 255, 0.2);
+}
+.nia-category-image.nia-ca5{
+  background-color: rgba(255, 255, 0, 0.2);
+}
+.nia-category-image.nia-ca6{
+  background-color: rgba(128, 0, 128, 0.2);
+}
+.nia-category-image.nia-ca7{
+  background-color: rgba(255, 192, 203, 0.2);
+}
+
 .nia-category-image img{
   height: 30px;
   width: 30px;
 }
+
+
+.nia-category-list .list:hover .nia-category-image.nia-ca1{
+  background-color: rgba(255, 165, 0, 1);
+}
+.nia-category-list .list:hover .nia-category-image.nia-ca2{
+  background-color: rgba(255, 0, 0, 1);
+}
+.nia-category-list .list:hover .nia-category-image.nia-ca3{
+  background-color: rgba(0, 128, 0, 1);
+}
+.nia-category-list .list:hover .nia-category-image.nia-ca4{
+  background-color: rgba(0, 0, 255, 1);
+}
+.nia-category-list .list:hover .nia-category-image.nia-ca5{
+  background-color: rgba(255, 255, 0, 1);
+}
+.nia-category-list .list:hover .nia-category-image.nia-ca6{
+  background-color: rgba(128, 0, 128, 1);
+}
+.nia-category-list .list:hover .nia-category-image.nia-ca7{
+  background-color: rgba(255, 192, 203, 1);
+}
+
+.nia-category-list .list:hover .nia-category-image img{
+  filter: brightness(0) invert(1);
+}
+
 
 .nia-category-content-container{
   flex-grow: 1;
@@ -411,12 +469,14 @@ pre{
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding-inline: 1rem;
 }
 
 
 .nia-category-content-header{
   display: flex;
   justify-content: space-between;
+  font-family: var(--nia-fw-bd);
 }
 
 .nia-category-content-chat{
@@ -461,6 +521,8 @@ pre{
   align-items: center;
   width: 100%;
   position: relative;
+  background-color: #eff6ff;
+  padding-block: 1rem;
 }
 
 .attachement-container{
@@ -554,8 +616,9 @@ pre{
 .nia-chat-input-container{
   flex-grow: 1;
   width: 100%;
-  max-width: 900px;
+  max-width: 1120px;
   position: relative;
+  padding-inline: 1rem;
 }
 
 .nia-chat-btn-container{
@@ -594,7 +657,7 @@ pre{
 }
 
 .nia-chat-input-container label{
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: white;
   position: relative;
   min-height: 40px;
   border-radius: 20px;
@@ -604,6 +667,7 @@ pre{
   align-items: center;
   font-size: 14px;
   z-index: 0;
+  margin-top: 1rem;
 }
 
 .nia-chat-input-container.focused label{
@@ -654,6 +718,16 @@ pre{
 .nia-chat-list-item pre{
   font-size: 1rem;
   overflow: visible;
+  margin-bottom: 0px;
+  line-height: 22px;
+}
+
+.nia-chat-list-item pre li{
+  line-height: 24px;
+}
+
+.nia-chat-answer > div h3{
+  margin-top: 1rem;
 }
 
 .nia-chat-answer div p:last-child, .nia-chat-answer div:last-child ol:last-child, .nia-chat-answer div:last-child ul:last-child,
@@ -664,7 +738,7 @@ pre{
 .nia-chat-list-q{
   display: flex;
   justify-self: right;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: white; /*rgba(0, 0, 0, 0.03)*/
   padding: 0px 16px 0px 16px;
   border-radius: 20px;
   justify-content: end;
@@ -753,6 +827,7 @@ pre{
 .nia-chat-question{
   line-height: 18px;
   padding: 8px;
+  background-color: white;
 }
 
 .nia-chat-list-a{
@@ -786,7 +861,7 @@ pre{
 }
 
 .nia-chat-answer{
-  background-color: #f4f9fd;
+  background-color: white; /* #f4f9fd */
   padding: 16px 24px;
   border-radius: 16px;
 }
@@ -807,7 +882,8 @@ pre{
 
 .nia-config-options{
   font-size: 14px;
-  margin-bottom: 24px;
+  padding:24px;
+  background-color: white;
 }
 
 .nia-config-options label{
@@ -816,4 +892,11 @@ pre{
   min-height: 16px;
   line-height: 16px;
   font-size: 12px;
+  margin-top: 0px;
+}
+
+
+
+.nia-option-checkbox-container input, .nia-option-checkbox-container label{
+  height: 24px;
 }
