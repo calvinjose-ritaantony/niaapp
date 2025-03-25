@@ -4,16 +4,13 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './fonts/nia-fonts.css';
 import './App.css';
 import HeaderComponent from './components/HeaderComponent'
-// import PageContentComponent from './components/PageContentComponent'
 import LoginComponent from './components/LoginComponent'
 import { useState } from 'react';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import DashboardComponent from './pages/DashboardComponent';
 import EcommerceComponent from './pages/EcommerceComponent';
-import EnterprisesComponent from './pages/EnterprisesComponent';
 
 function App() {
-  const [showLeftPanel, setShowLeftPanel] = useState(false);
   const toggleLeftPanel = (toggle) =>{
     setShowLeftPanel(toggle);
   }
@@ -26,8 +23,8 @@ function App() {
         <div className='nia-container'>
         <Routes>
         <Route path="/" element={<DashboardComponent />} />
-        <Route path="/e-commerce" element={<EcommerceComponent />} />
-        <Route path="/enterprise" element={<EnterprisesComponent />} />
+        <Route path="/e-commerce" element={<EcommerceComponent category="e-commerce" />} />
+        <Route path="/enterprise" element={<EcommerceComponent category="enterprise" />} />
         </Routes>
         </div>
       </AuthenticatedTemplate>

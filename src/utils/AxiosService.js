@@ -2,7 +2,6 @@ import axios from "axios";
 
 const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
 //const BASE_URL ="http://localhost:8000/";
-let current_use_case_id = undefined;
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -78,21 +77,11 @@ const chatServices = {
   },
 
   async postChat(formData, gpt_id, gpt_name) {
-    gpt_id = "67975ddc2c063727d355e0b2";
-    gpt_name = "Nia";
-    //"ecommerce-rag-demo";
     return await axios.post(`chat/${gpt_id}/${gpt_name}`, formData, formHeader())
   },
 
-  async chatHistory(gpt_id, gpt_name) {
-    gpt_id = "67975ddc2c063727d355e0b2";
-    gpt_name = "Nia";
-    console.log("Chat history");
-    let url = `chat_history/${gpt_id}/${gpt_name}`;
-    if(current_use_case_id !== undefined) {
-      url = `${url}/${current_use_case_id}`;
-    }
-    console.log(url);
+  async chatHistory(gpt_id, gpt_name, current_use_case_id) {
+    let url = current_use_case_id ? `chat_history/${gpt_id}/${gpt_name}/${current_use_case_id}` : `chat_history/${gpt_id}/${gpt_name}`;
     return await axios.get(url, jsonHeader())
   },
 
@@ -103,7 +92,6 @@ const chatServices = {
   },
 
   async updateInstruction(gpt_id, gpt_name, usecase_id) {
-    current_use_case_id = usecase_id;
     return await axios.post(`update_instruction/${gpt_id}/${gpt_name}/${usecase_id}`, jsonHeader())
   },
 }
