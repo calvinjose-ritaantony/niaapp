@@ -346,6 +346,7 @@ pre *{
 
 .nia-category-list .list.active{
   font-family: var(--nia-fw-bd);
+  pointer-events: none;
 }
 
 .nia-category-btn-left, .nia-category-btn-right{
