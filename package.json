@@ -13,6 +13,7 @@
   "dependencies": {
     "@azure/msal-browser": "^4.0.1",
     "@azure/msal-react": "^3.0.1",
+    "@hello-pangea/dnd": "^18.0.1",
     "@popperjs/core": "^2.11.8",
     "@redux-devtools/extension": "^3.3.0",
     "axios": "^1.7.9",
