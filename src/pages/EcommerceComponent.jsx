@@ -27,7 +27,6 @@ const EcommerceComponent = (props) => {
   },[props.category]);
 
   const clearCategory = () => {
-    console.log("Clear chat history");
     dispatch({type:CHAT_USECASE_SUCCESS, payload: null });
     setSelectedUseCase(null);
   }

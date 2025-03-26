@@ -23,7 +23,6 @@ const RightPanelComponent = (props) => {
 
   const scrollToTop = () => {
     // if (chatContainerRef.current) {
-    //   console.log("scroll to top1");
     //   chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     // }
     // const div = document.getElementById('scrollableDiv');

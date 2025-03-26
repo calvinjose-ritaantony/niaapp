@@ -26,7 +26,6 @@ export const chatListReducer = (
         chatInput: action.payload,
       };
     case CHAT_ATTACHEMENT_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         chatAttachement: action.payload,
