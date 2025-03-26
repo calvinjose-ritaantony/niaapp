@@ -74,9 +74,15 @@ const ChatFormComponent = (props) => {
     setChatInput("");
     setChatFile(null);
     setThumbnail(null);
-    const data = await dispatch(postChatAction(formData, gptId, gptName));
+    const data = await dispatch(postChatAction(formData, props.activeGptDetails?._id,
+      props.activeGptDetails?.description));
     const getChatHistory = await dispatch(
-      getChatHistoryAction(gptId, gptName, true)
+      // getChatHistoryAction(gptId, gptName, true)
+      getChatHistoryAction(
+        props.activeGptDetails?._id,
+        props.activeGptDetails?.description,
+        props.selectedUseCase ? props.selectedUseCase._id : null
+      )
     );
     dispatch({ type: CHAT_ATTACHEMENT_SUCCESS, payload: null });
     props.scrollToTop();

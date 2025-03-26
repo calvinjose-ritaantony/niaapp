@@ -85,6 +85,7 @@ const RightPanelComponent = (props) => {
       <div className="nia-right-panel-form">
         <div className="nia-chat-form-container">
           <ChatFormComponent
+            selectedUseCase={props.selectedUseCase}
             activeGptDetails={props.activeGptDetails}
             scrollToTop={scrollToTop}
           />
