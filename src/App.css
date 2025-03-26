@@ -919,7 +919,9 @@ pre *{
   margin-top: 0px;
 }
 
-
+.nia-option-checkbox-container {
+  flex-basis: 70%;
+}
 
 .nia-option-checkbox-container input, .nia-option-checkbox-container label{
   height: 24px;
