@@ -53,7 +53,6 @@ const RightPanelComponent = (props) => {
       }
     };
   }, []);
-
   return (
     <div className="nia-category-content">
       <div className="nia-category-content-header">

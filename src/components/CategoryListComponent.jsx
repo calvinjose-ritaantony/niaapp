@@ -6,6 +6,7 @@ import {
   getUsecaseAction,
 } from "../redux/actions/ChatConversationAction";
 import { menuList } from "../utils/menuList";
+import { findDifferences } from "../utils/sharedFunction";
 
 const CategoryListComponent = (props) => {
   const [selectedUseCase, setSelectedUseCase] = useState({});
@@ -42,11 +43,16 @@ const CategoryListComponent = (props) => {
   };
 
   useEffect(() => {
-      const savedOrder = localStorage.getItem(`useCasesOrder_${props.category}`);
-      if (savedOrder) {
+      const savedOrder = localStorage.getItem(`useCasesOrder_${props.category}`) || [];
+      let useCaseList = menuList && menuList ?.filter((itm) => itm.name === props.category)[0]?.["useCases"];
+
+      const isDifUsecases = findDifferences(JSON.parse(savedOrder), useCaseList);
+      if(isDifUsecases){
+        localStorage.setItem(`useCasesOrder_${props.category}`, JSON.stringify(useCaseList));
+        setUseCases(useCaseList);
+      }else if (savedOrder) {
         setUseCases(JSON.parse(savedOrder));
       } else {
-        let useCaseList = menuList && menuList ?.filter((itm) => itm.name === props.category)[0]?.["useCases"];
         setUseCases(useCaseList);
       }
     }, []);

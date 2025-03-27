@@ -8,6 +8,7 @@ export const menuList = [
         { name: "TRACK_ORDERS", label: "Track my Order", colorType: 'nia-ca4' },
         { name: "SUMMARIZE_PRODUCT_REVIEWS", label: "Product Reviews", colorType: 'nia-ca5' },
         { name: "HANDLE_FAQS", label: "Enquiries", colorType: 'nia-ca6' },
+        { name: "TRACK_ORDERS_TKE", label: "Track Order KTE", colorType: 'nia-ca7' },
       ],
     },
     {
