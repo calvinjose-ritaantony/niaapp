@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
-//const BASE_URL ="http://localhost:8000/";
+// const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
+const BASE_URL ="http://localhost:8000/";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -86,13 +86,30 @@ const chatServices = {
   },
 
   async clearChathistory(gpt_id, gpt_name) {
-    gpt_id = "67975ddc2c063727d355e0b2";
-    gpt_name = "Nia";
+    // gpt_id = "67975ddc2c063727d355e0b2";
+    // gpt_name = "Nia";
     return await axios.put(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
   },
 
   async updateInstruction(gpt_id, gpt_name, usecase_id) {
     return await axios.post(`update_instruction/${gpt_id}/${gpt_name}/${usecase_id}`, jsonHeader())
+  },
+
+  // New function to upload documents
+  async uploadDocuments(gpt_id, gpt_name, gptData, files) {
+    const formData = new FormData();
+    
+    // Add the gpt data as a JSON string
+    formData.append('gpt', JSON.stringify(gptData));
+    
+    // Add each file to the formData
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
+      }
+    }
+    
+    return await axios.put(`upload_document/${gpt_id}/${gpt_name}`, formData, formHeader());
   },
 }
 

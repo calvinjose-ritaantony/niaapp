@@ -48,6 +48,8 @@ const ChatFormComponent = (props) => {
     }
   };
 
+  console.log("props-form",props);
+
   const removeFile = () => {
     setChatFile(null);
     setThumbnail(null);
@@ -105,7 +107,7 @@ const ChatFormComponent = (props) => {
     <div
       className={`nia-chat-input-container ${textRows > 1 ? "focused" : ""}`}
     >
-      {showConfig && <ChatFormParametersComponent updateParams={updateParams} />}
+      {showConfig && <ChatFormParametersComponent updateParams={updateParams} activeGptDetails={props.activeGptDetails} />}
       <label htmlFor="chat-input">
         <textarea
           type="text"
