@@ -86,8 +86,6 @@ const chatServices = {
   },
 
   async clearChathistory(gpt_id, gpt_name) {
-    gpt_id = "67975ddc2c063727d355e0b2";
-    gpt_name = "Nia";
     return await axios.put(`clear_chat_history/${gpt_id}/${gpt_name}`, jsonHeader())
   },
 

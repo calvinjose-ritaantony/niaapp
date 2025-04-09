@@ -31,7 +31,7 @@ const ChatConversationComponent = (props) => {
       const chatHistoryData = await dispatch(
         getChatHistoryAction(
           props.activeGptDetails?._id,
-          props.activeGptDetails?.description,
+          props.activeGptDetails?.name,
           props.selectedUseCase ? props.selectedUseCase._id : null
         )
       );

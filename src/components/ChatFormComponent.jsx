@@ -80,7 +80,8 @@ const ChatFormComponent = (props) => {
       // getChatHistoryAction(gptId, gptName, true)
       getChatHistoryAction(
         props.activeGptDetails?._id,
-        props.activeGptDetails?.description,
+        // props.activeGptDetails?.description,
+        props.activeGptDetails?.name,
         props.selectedUseCase ? props.selectedUseCase._id : null
       )
     );

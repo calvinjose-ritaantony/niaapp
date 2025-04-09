@@ -16,7 +16,7 @@ const RightPanelComponent = (props) => {
   const { loading } = useSelector((state) => state.commonData);
   const clearAllChat = async () => {
     const clearChatHistory = await dispatch(
-      clearChatHistoryAction(gptId, gptName)
+      clearChatHistoryAction(props.activeGptDetails?._id, props.activeGptDetails?.name)
     );
     scrollToTop();
   };
