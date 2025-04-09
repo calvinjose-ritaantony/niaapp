@@ -1,4 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
+import { chatServices } from '../utils/AxiosService'; // Corrected path to the AxiosService file
+import { useSelector } from 'react-redux';
+
 
 const Parameters = [
     {
@@ -103,6 +106,11 @@ const Parameters = [
 ]
 
 const ChatFormParametersComponent = (props) => {
+  // Get activeGptDetails from Redux store
+  const activeGptDetails = props.activeGptDetails;
+  const gptId = props.gptId;
+  console.log("props",props);
+  
   const [params, setParams] = useState({
     model_configuration: {
       max_tokens: 800,
@@ -122,12 +130,19 @@ const ChatFormParametersComponent = (props) => {
       alpha: 0.5
     },
   });
+  
+  // Add state for file handling
+  const [files, setFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState('');
+  const [useRag, setUseRag] = useState(false);
+  
   const updateConfiguration = (paramsCategory, paramsField, paramsValue) => {
     setParams((prevParams) => ({
       ...prevParams,
       [paramsCategory]: {
         ...prevParams[paramsCategory],
-        [paramsField]: paramsValue, // Toggle hybrid_search
+        [paramsField]: paramsValue,
       },
     }));
   };
@@ -137,10 +152,65 @@ const ChatFormParametersComponent = (props) => {
       ...prevParams,
       [paramsCategory]: {
         ...prevParams[paramsCategory],
-        [paramsField]: !prevParams[paramsCategory][paramsField], // Toggle hybrid_search
+        [paramsField]: !prevParams[paramsCategory][paramsField],
       },
     }));
   }
+
+  // Handle file selection
+  const handleFileChange = (e) => {
+    setFiles(Array.from(e.target.files));
+  };
+
+  // Handle file upload
+  const handleUpload = async () => {
+    // Get GPT ID and name from Redux store
+    console.log("Active GPT Details",activeGptDetails);
+    const gpt_id = activeGptDetails?._id;
+    const gpt_name = activeGptDetails?.description;
+    
+    if (!gpt_id || !gpt_name) {
+      setUploadStatus('Error: No active GPT selected');
+      return;
+    }
+    
+    if (files.length === 0 && !useRag) {
+      setUploadStatus('Please select files to upload or enable RAG');
+      return;
+    }
+    
+    // Prepare GPT data from the params
+    const gptData = {
+      ...params,
+      use_rag: useRag,
+      use_case_id: props.current_use_case_id || ""
+    };
+    
+    setUploading(true);
+    setUploadStatus('Uploading...');
+    
+    try {
+      const response = await chatServices.uploadDocuments(gpt_id, gpt_name, gptData, files);
+      console.log(response);
+      
+      if (response.status === 200) {
+        setUploadStatus('Upload successful: ' + response.data.message);
+        setFiles([]); // Clear the files after successful upload
+
+                // Add a slight delay before refreshing the page
+      setTimeout(() => {
+        window.location.reload(); // Refresh the page
+      }, 1500); // 1.5 second delay to show the success message before refreshing
+      } else {
+        setUploadStatus('Upload failed: ' + response.data.error);
+      }
+    } catch (error) {
+      console.error('Error uploading files:', error);
+      setUploadStatus('Error uploading files: ' + (error.response?.data?.error || error.message));
+    } finally {
+      setUploading(false);
+    }
+  };
 
   useEffect(()=>{
     props.updateParams(params);
@@ -154,7 +224,7 @@ const ChatFormParametersComponent = (props) => {
         <div className="flex-grow-1">
           <div className="row">
             {parameterList && parameterList.parameters.map((parametersData, j)=>(
-                <Fragment  key={`parameterData_${parametersData.name}_${j}`}>
+                <Fragment key={`parameterData_${parametersData.name}_${j}`}>
                 {parametersData.type==='Boolean' ? 
                 <div className="col-6 d-flex gap-2 mb-3 nia-option-checkbox-container" style={j === 0 ? { flexBasis: 'content' } : {}}>
                     <input type='checkbox' id={parametersData.name} value={parametersData.name} checked={params?.[parameterList.parameterName]?.[parametersData.name]} onChange={()=>handleCheckboxChange(parameterList.parameterName, parametersData.name)} />
@@ -187,6 +257,51 @@ const ChatFormParametersComponent = (props) => {
       </div>
     ))}
     
+    {/* Add the file upload section */}
+    <div className="nia-config-options d-flex mt-4">
+      <div className="pe-3"><div style={{width: '150px'}}>Document Upload</div></div>
+      <div className="flex-grow-1">
+        <div className="row">
+          <div className="col-12 mb-3">
+            <input 
+              type="file" 
+              className="form-control" 
+              multiple 
+              onChange={handleFileChange} 
+            />
+            <div className="form-text">
+              {files.length > 0 ? `${files.length} file(s) selected` : 'No files selected'}
+            </div>
+          </div>
+          <div className="col-12 mb-3 d-flex align-items-center">
+            <button 
+              className="btn btn-primary me-3" 
+              onClick={handleUpload} 
+              //disabled={uploading || !activeGptDetails?._id}
+            >
+              {uploading ? 'Uploading...' : 'Upload Documents'}
+            </button>
+            {uploadStatus && (
+              <div className={`text-${uploadStatus.includes('successful') ? 'success' : 'danger'}`}>
+                {uploadStatus}
+              </div>
+            )}
+          </div>
+          <div className="col-12">
+            <div className="form-text">
+              {activeGptDetails ? (
+                <>
+                  Current GPT ID: {activeGptDetails._id}<br/>
+                  Current GPT Name: {activeGptDetails.name}
+                </>
+              ) : (
+                'No active GPT selected'
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     </>
   )
 }
