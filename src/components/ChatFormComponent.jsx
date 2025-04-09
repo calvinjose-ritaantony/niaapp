@@ -48,8 +48,6 @@ const ChatFormComponent = (props) => {
     }
   };
 
-  console.log("props-form",props);
-
   const removeFile = () => {
     setChatFile(null);
     setThumbnail(null);

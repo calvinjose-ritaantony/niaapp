@@ -43,11 +43,10 @@ const CategoryListComponent = (props) => {
   };
 
   useEffect(() => {
-      const savedOrder = localStorage.getItem(`useCasesOrder_${props.category}`) || [];
+      const savedOrder = localStorage.getItem(`useCasesOrder_${props.category}`) || null;
       let useCaseList = menuList && menuList ?.filter((itm) => itm.name === props.category)[0]?.["useCases"];
-
-      const isDifUsecases = findDifferences(JSON.parse(savedOrder), useCaseList);
-      if(isDifUsecases){
+      const isDifUsecases = savedOrder && findDifferences(JSON.parse(savedOrder), useCaseList) ? true : false;
+      if(!savedOrder || isDifUsecases){
         localStorage.setItem(`useCasesOrder_${props.category}`, JSON.stringify(useCaseList));
         setUseCases(useCaseList);
       }else if (savedOrder) {
