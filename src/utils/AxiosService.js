@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
-const BASE_URL ="http://localhost:8000/";
+const BASE_URL = 'https://customgptapp2.azurewebsites.net/';
+// const BASE_URL ="http://localhost:8000/";
 
 axios.defaults.baseURL = BASE_URL;
 

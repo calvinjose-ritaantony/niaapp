@@ -8,7 +8,7 @@ export const menuList = [
         { name: "TRACK_ORDERS", label: "Track my Order", colorType: 'nia-ca4' },
         { name: "SUMMARIZE_PRODUCT_REVIEWS", label: "Product Reviews", colorType: 'nia-ca5' },
         { name: "HANDLE_FAQS", label: "Enquiries", colorType: 'nia-ca6' },
-        { name: "TRACK_ORDERS_TKE", label: "Track Order KTE", colorType: 'nia-ca7' },
+        { name: "TRACK_ORDERS_TKE", label: "Order Tracker", colorType: 'nia-ca7' },
       ],
     },
     {
@@ -20,7 +20,7 @@ export const menuList = [
           label: "Create Product Description", colorType: 'nia-ca2'
         },
         { name: "MANAGE_TICKETS", label: "Manage Tickets", colorType: 'nia-ca3' },
-        { name: "DOC_SEARCH", label: "Search Knowledge Base", colorType: 'nia-ca4' },
+        { name: "DOC_SEARCH", label: "Ask Your Document", colorType: 'nia-ca4' },
         { name: "ANALYZE_SPENDING_PATTERNS", label: "Analyze Spending Patterns", colorType: 'nia-ca5' },
         { name: "GENERATE_REPORTS", label: "Reports", colorType: 'nia-ca6' },
         { name: "CUSTOMER_COMPLAINTS", label: "Customer Complaints", colorType: 'nia-ca7' },
